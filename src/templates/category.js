@@ -1,9 +1,10 @@
-/** 分类页模板 */
-import { esc, toolCard } from './common.js';
+/** 分类页模板 —— 与首页同款横向工具行 + 价格筛选 */
+import { esc, toolRowList, filterBar, isFreeUsable, catChips, catColor } from './common.js';
 
-export function renderCategory({ site, categories, category, list }) {
-  const others = categories.filter((c) => c.slug !== category.slug);
-  const items = list.map((t) => `<li>${toolCard(t, 1)}</li>`).join('');
+export function renderCategory({ site, categories, category, list, byCat }) {
+  const idx = categories.findIndex((c) => c.slug === category.slug);
+  const color = catColor(category, idx < 0 ? 0 : idx);
+  const freeCount = list.filter(isFreeUsable).length;
 
   const itemListJsonLD = {
     '@context': 'https://schema.org',
@@ -25,6 +26,9 @@ export function renderCategory({ site, categories, category, list }) {
     ],
   };
 
+  const others = categories.filter((c) => c.slug !== category.slug);
+  const countOf = (c) => (byCat.get(c.slug) || []).length;
+
   return `<script type="application/ld+json">${JSON.stringify(itemListJsonLD)}</script>
 <script type="application/ld+json">${JSON.stringify(breadcrumbJsonLD)}</script>
 <div class="container">
@@ -32,14 +36,25 @@ export function renderCategory({ site, categories, category, list }) {
     <a href="../index.html">首页</a><span aria-hidden="true">/</span><span>${esc(category.name)}</span>
   </nav>
   <header class="page-header">
-    <h1>${esc(category.icon || '')} ${esc(category.name)}</h1>
+    <h1><span class="section-dot" style="background:${color}"></span>${esc(category.name)}</h1>
     <p>${esc(category.description)}</p>
-    <p class="page-meta">共收录 ${list.length} 款工具</p>
+    <p class="page-meta">共收录 ${list.length} 款工具 · 其中 ${freeCount} 款可免费使用</p>
   </header>
-  <ul class="tool-grid tool-grid-list">${items}</ul>
+
+  ${filterBar('category')}
+
+  ${toolRowList(list, 1)}
+
+  <p class="empty-hint" data-empty-hint hidden>当前筛选条件下没有匹配的工具。</p>
+
   <nav class="cat-siblings" aria-label="其他分类">
     <h2>其他分类</h2>
-    <p>${others.map((c) => `<a class="chip" href="${c.slug}.html">${esc(c.icon || '')} ${esc(c.name)}</a>`).join('')}</p>
+    <div class="cat-chips">${others
+      .map((c) => {
+        const i = categories.findIndex((x) => x.slug === c.slug);
+        return `<a class="cat-chip" href="${c.slug}.html"><span class="cat-chip-dot" style="background:${catColor(c, i < 0 ? 0 : i)}"></span>${esc(c.name)}<b>${countOf(c)}</b></a>`;
+      })
+      .join('')}</div>
   </nav>
 </div>`;
 }

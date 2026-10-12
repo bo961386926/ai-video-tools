@@ -12,3 +12,6 @@ Thumbs.db
 # 本地环境
 .env
 .env.local
+
+# 本地 Agent 工作数据（工作日志等，不入库）
+.workbuddy-ai/

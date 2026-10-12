@@ -51,6 +51,7 @@ function validate(data) {
     else if (catSlugs.has(c.slug)) errors.push(`${p}.slug 重复：${c.slug}`);
     catSlugs.add(c.slug);
     if (!c.name) errors.push(`${p}.name 缺失`);
+    if (c.color && !/^#[0-9a-fA-F]{6}$/.test(c.color)) errors.push(`${p}.color 需为 #RRGGBB 十六进制色值：${c.color}`);
     if (c.description && [...c.description].length > 120) warnings.push(`${p}.description 过长，建议 ≤120 字`);
   });
 
@@ -76,6 +77,9 @@ function validate(data) {
     }
     if (t.access && !['direct', 'proxy', 'unknown'].includes(t.access)) {
       errors.push(`${p}.access 非法（需 direct/proxy/unknown）：${t.access}`);
+    }
+    if (t.rating !== undefined && t.rating !== null && (typeof t.rating !== 'number' || t.rating < 0 || t.rating > 5)) {
+      errors.push(`${p}(${t.slug}).rating 需为 0-5 之间的数字：${t.rating}`);
     }
   });
 
@@ -151,7 +155,7 @@ function build() {
         description: cat.description,
         path: `/category/${cat.slug}.html`,
         depth: 1,
-        body: renderCategory({ site, categories, category: cat, list }),
+        body: renderCategory({ site, categories, category: cat, list, byCat }),
       }),
     });
   }

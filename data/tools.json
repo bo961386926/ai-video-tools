@@ -11,42 +11,48 @@
       "name": "文生视频",
       "description": "输入文字或图片即可生成视频片段的 AI 生成工具，适合短片创意、分镜预览和素材创作。",
       "icon": "🎬",
-      "order": 1
+      "order": 1,
+      "color": "#ef4444"
     },
     {
       "slug": "ai-editing",
       "name": "AI 剪辑",
       "description": "自动剪辑、智能字幕、口播去除、素材重组等提升视频制作效率的 AI 编辑工具。",
       "icon": "✂️",
-      "order": 2
+      "order": 2,
+      "color": "#3b82f6"
     },
     {
       "slug": "digital-human",
       "name": "数字人口播",
       "description": "用数字人代替真人出镜完成口播、课程和企业宣传视频，支持多语言与形象定制。",
       "icon": "🧑‍💼",
-      "order": 3
+      "order": 3,
+      "color": "#8b5cf6"
     },
     {
       "slug": "translation-dubbing",
       "name": "翻译与配音",
       "description": "视频多语言翻译、AI 配音、音色克隆与字幕生成工具，助力内容出海与本地化。",
       "icon": "🌐",
-      "order": 4
+      "order": 4,
+      "color": "#14b8a6"
     },
     {
       "slug": "asset-generation",
       "name": "素材生成",
       "description": "为视频制作生成配图、音乐、音效等配套素材的 AI 工具，让音画一次到位。",
       "icon": "🎵",
-      "order": 5
+      "order": 5,
+      "color": "#f59e0b"
     },
     {
       "slug": "video-enhance",
       "name": "增强与修复",
       "description": "老片修复、画质增强、帧率提升、音频降噪等让素材焕然一新的 AI 工具。",
       "icon": "✨",
-      "order": 6
+      "order": 6,
+      "color": "#ec4899"
     }
   ],
   "tools": [

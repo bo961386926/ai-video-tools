@@ -133,6 +133,12 @@
       sl.textContent = t.slug;
       names.appendChild(nm);
       names.appendChild(sl);
+      if (typeof t.rating === 'number') {
+        var rt = document.createElement('div');
+        rt.className = 'rate';
+        rt.textContent = '★ ' + t.rating.toFixed(1);
+        names.appendChild(rt);
+      }
       cell.appendChild(icon);
       cell.appendChild(names);
       tdName.appendChild(cell);
@@ -233,6 +239,8 @@
     $('featured').checked = t ? !!t.featured : false;
     $('pricing').value = t ? t.pricing : 'freemium';
     $('access').value = t ? (t.access || 'direct') : 'direct';
+    $('rating').value = t && typeof t.rating === 'number' ? t.rating : '';
+    $('likes').value = t && typeof t.likes === 'number' ? t.likes : '';
     setLogo(t ? t.logo : '');
   }
 
@@ -249,6 +257,8 @@
       tags: $('tags').value.split(/[,，]/).map(function (s) { return s.trim(); }).filter(Boolean),
       featured: $('featured').checked,
       logo: $('logo').value.trim(),
+      rating: $('rating').value.trim(),
+      likes: $('likes').value.trim(),
     };
   }
 

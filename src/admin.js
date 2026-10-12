@@ -33,6 +33,13 @@ const today = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
 
+/** 可选数值字段：空串/空值 → null；非有限数字 → null */
+const numOrNull = (v) => {
+  if (v === '' || v === null || v === undefined) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+};
+
 const run = (cmd, args) =>
   new Promise((res) => {
     execFile(cmd, args, { cwd: ROOT, maxBuffer: 16 * 1024 * 1024 }, (err, stdout, stderr) => {
@@ -101,6 +108,8 @@ function validateTool(t, data, originalSlug) {
     if (t[d] && !/^\d{4}-\d{2}-\d{2}$/.test(t[d])) errors.push(`${d} 日期格式应为 YYYY-MM-DD：${t[d]}`);
   }
   if (t.access && !['direct', 'proxy', 'unknown'].includes(t.access)) errors.push(`access 非法：${t.access}`);
+  if (t.rating !== undefined && (typeof t.rating !== 'number' || t.rating < 0 || t.rating > 5)) errors.push(`评分需为 0-5 之间的数字：${t.rating}`);
+  if (t.likes !== undefined && (!Number.isInteger(t.likes) || t.likes < 0)) errors.push(`点赞数需为非负整数：${t.likes}`);
   if (!t.description) warnings.push('description 为空，详情页将只展示 tagline');
   if (t.logo && /^https?:\/\//.test(t.logo) === false && !existsSync(join(SRC_DIR, t.logo))) {
     warnings.push('logo 指向的本地文件不存在，将回退为首字母头像');
@@ -376,6 +385,13 @@ async function handleApi(req, res, pathname) {
     });
     if (incoming.logo) tool.logo = String(incoming.logo).trim();
     else delete tool.logo;
+    // 可选字段：留空即从数据中移除，保持 tools.json 干净
+    const rating = numOrNull(incoming.rating);
+    if (rating === null) delete tool.rating;
+    else tool.rating = Math.round(rating * 10) / 10;
+    const likes = numOrNull(incoming.likes);
+    if (likes === null || likes <= 0) delete tool.likes;
+    else tool.likes = Math.round(likes);
     if (!existing) tool.addedAt = today();
     tool.updatedAt = today();
 

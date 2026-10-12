@@ -1,15 +1,19 @@
-/** 首页模板 */
-import { esc, toolCard } from './common.js';
+/** 首页模板 —— 参考 AI工具宝箱列表页：统计条 + 分类 chips + 价格筛选 + 横向工具行 */
+import { esc, toolRowList, statsBar, catChips, filterBar, isFreeUsable, catColor } from './common.js';
 
 export function renderHome({ site, categories, tools, byCat }) {
   const featured = tools.filter((t) => t.featured).slice(0, 6);
   const recent = tools.slice(0, 8);
   const total = tools.length;
+  const freeCount = tools.filter(isFreeUsable).length;
+  const lastUpdate = tools.map((t) => t.updatedAt).filter(Boolean).sort().at(-1) || '每日';
+
+  const countOf = (c) => (byCat.get(c.slug) || []).length;
 
   const catCards = categories
-    .map((c) => {
-      const n = (byCat.get(c.slug) || []).length;
-      return `<a class="cat-card" href="category/${c.slug}.html">
+    .map((c, i) => {
+      const n = countOf(c);
+      return `<a class="cat-card" href="category/${c.slug}.html" style="--cat-color:${catColor(c, i)}">
         <span class="cat-icon" aria-hidden="true">${esc(c.icon || '📁')}</span>
         <span class="cat-name">${esc(c.name)}</span>
         <span class="cat-count">${n} 款工具</span>
@@ -20,23 +24,24 @@ export function renderHome({ site, categories, tools, byCat }) {
   const featuredSec = featured.length
     ? `<section class="section" aria-labelledby="featured-title">
         <div class="section-head">
-          <h2 id="featured-title">编辑推荐</h2>
+          <h2 id="featured-title"><span class="section-dot"></span>编辑推荐<span class="cat-badge">HOT</span></h2>
+          <a class="section-more" href="#cat-${esc(categories[0] ? categories[0].slug : '')}">浏览全部 ${total} 款 →</a>
         </div>
-        <div class="tool-grid">${featured.map((t) => toolCard(t, 0)).join('')}</div>
+        ${toolRowList(featured, 0)}
       </section>`
     : '';
 
   const catSections = categories
-    .map((c) => {
+    .map((c, i) => {
       const list = (byCat.get(c.slug) || []).sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
       if (!list.length) return '';
       return `<section class="section" aria-labelledby="cat-${c.slug}">
         <div class="section-head">
-          <h2 id="cat-${c.slug}">${esc(c.icon || '')} ${esc(c.name)}</h2>
+          <h2 id="cat-${c.slug}"><span class="section-dot" style="background:${catColor(c, i)}"></span>${esc(c.name)}</h2>
           <a class="section-more" href="category/${c.slug}.html">查看全部 ${list.length} 款 →</a>
         </div>
         <p class="section-desc">${esc(c.description)}</p>
-        <div class="tool-grid">${list.map((t) => toolCard(t, 0)).join('')}</div>
+        ${toolRowList(list, 0)}
       </section>`;
     })
     .join('');
@@ -59,21 +64,29 @@ export function renderHome({ site, categories, tools, byCat }) {
       <input type="search" id="tool-search" placeholder="搜索工具名称、功能或场景…" aria-label="站内搜索工具">
       <span class="hero-search-count" id="search-count" aria-live="polite"></span>
     </div>
-    <p class="hero-stats">已收录 <strong>${total}</strong> 款工具 · 覆盖 <strong>${categories.length}</strong> 个分类 · 每款工具均经人工核验</p>
+    ${statsBar([
+      [total, '款收录工具'],
+      [categories.length, '大分类'],
+      [freeCount, '款可免费使用'],
+      [lastUpdate, '最近更新'],
+    ])}
   </div>
 </section>
 
 <div class="container">
   <section class="section" aria-labelledby="cats-title">
-    <div class="section-head"><h2 id="cats-title">按分类浏览</h2></div>
+    <div class="section-head"><h2 id="cats-title"><span class="section-dot"></span>按分类浏览</h2></div>
     <div class="cat-grid">${catCards}</div>
+    ${catChips(categories, countOf, (c) => `category/${c.slug}.html`)}
   </section>
+
+  ${filterBar('home')}
 
   ${featuredSec}
   ${catSections}
 
   <section class="section" aria-labelledby="recent-title">
-    <div class="section-head"><h2 id="recent-title">最近更新</h2></div>
+    <div class="section-head"><h2 id="recent-title"><span class="section-dot"></span>最近更新</h2></div>
     <ul class="recent-list">${recentList}</ul>
   </section>
 
