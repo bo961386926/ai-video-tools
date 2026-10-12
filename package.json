@@ -1,0 +1,11 @@
+{
+  "name": "ai-video-tools-directory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI 视频创作工具垂直导航站（纯静态、零依赖）",
+  "scripts": {
+    "build": "node src/build.js",
+    "preview": "node src/build.js && npx --yes serve dist -l 4173"
+  }
+}

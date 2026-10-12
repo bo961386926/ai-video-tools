@@ -1,0 +1,1419 @@
+{
+  "site": {
+    "name": "AI视频工具导航",
+    "domain": "https://example.com",
+    "description": "精选真实好用的 AI 视频创作工具：文生视频、AI 剪辑、数字人、翻译配音、素材生成，每款工具都经过人工核验，标注定价与国内访问情况。",
+    "sponsors": []
+  },
+  "categories": [
+    {
+      "slug": "text-to-video",
+      "name": "文生视频",
+      "description": "输入文字或图片即可生成视频片段的 AI 生成工具，适合短片创意、分镜预览和素材创作。",
+      "icon": "🎬",
+      "order": 1
+    },
+    {
+      "slug": "ai-editing",
+      "name": "AI 剪辑",
+      "description": "自动剪辑、智能字幕、口播去除、素材重组等提升视频制作效率的 AI 编辑工具。",
+      "icon": "✂️",
+      "order": 2
+    },
+    {
+      "slug": "digital-human",
+      "name": "数字人口播",
+      "description": "用数字人代替真人出镜完成口播、课程和企业宣传视频，支持多语言与形象定制。",
+      "icon": "🧑‍💼",
+      "order": 3
+    },
+    {
+      "slug": "translation-dubbing",
+      "name": "翻译与配音",
+      "description": "视频多语言翻译、AI 配音、音色克隆与字幕生成工具，助力内容出海与本地化。",
+      "icon": "🌐",
+      "order": 4
+    },
+    {
+      "slug": "asset-generation",
+      "name": "素材生成",
+      "description": "为视频制作生成配图、音乐、音效等配套素材的 AI 工具，让音画一次到位。",
+      "icon": "🎵",
+      "order": 5
+    },
+    {
+      "slug": "video-enhance",
+      "name": "增强与修复",
+      "description": "老片修复、画质增强、帧率提升、音频降噪等让素材焕然一新的 AI 工具。",
+      "icon": "✨",
+      "order": 6
+    }
+  ],
+  "tools": [
+    {
+      "slug": "runway",
+      "name": "Runway",
+      "category": "text-to-video",
+      "tagline": "专业级 AI 视频生成与编辑平台",
+      "description": "Runway 是面向专业创作者的 AI 视频工具套件，Gen 系列模型支持文生视频与图生视频，并提供视频抠像、运动笔刷、无限画布等编辑能力，广泛用于影视预演和广告创意。",
+      "website": "https://runwayml.com",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "图生视频",
+        "视频编辑"
+      ],
+      "featured": true,
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "kling",
+      "name": "可灵 AI",
+      "category": "text-to-video",
+      "tagline": "快手推出的视频生成大模型",
+      "description": "可灵 AI 由快手团队研发，支持文生视频、图生视频与视频续写，生成的动态画面在物理合理性和语义响应上表现突出，国内用户注册即可使用。",
+      "website": "https://klingai.com",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "视频续写",
+        "国产"
+      ],
+      "featured": true,
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "jimeng",
+      "name": "即梦 AI",
+      "category": "text-to-video",
+      "tagline": "字节跳动旗下的一站式 AI 创作平台",
+      "description": "即梦 AI 是字节跳动推出的 AI 创作工具，支持文生图、图生视频、智能画布与故事剧本创作，与剪映生态衔接，适合短视频创作者快速出片。",
+      "website": "https://jimeng.jianying.com",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "智能画布",
+        "国产"
+      ],
+      "featured": true,
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "sora",
+      "name": "OpenAI Sora",
+      "category": "text-to-video",
+      "tagline": "OpenAI 推出的文生视频模型",
+      "description": "Sora 是 OpenAI 的视频生成模型，可根据文字描述生成较长时长、多镜头的视频，具备较强的物理世界模拟与场景连贯能力，目前集成在 ChatGPT 产品中使用。",
+      "website": "https://openai.com/sora",
+      "pricing": "paid",
+      "tags": [
+        "文生视频",
+        "长视频"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "pika",
+      "name": "Pika",
+      "category": "text-to-video",
+      "tagline": "轻量易用的 AI 视频生成工具",
+      "description": "Pika 以简洁的交互和丰富的特效模板著称，支持文生视频、图生视频与局部重绘（Pikaffects），适合社交媒体创作者快速制作趣味短片。",
+      "website": "https://pika.art",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "特效模板"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "luma-dream-machine",
+      "name": "Luma Dream Machine",
+      "category": "text-to-video",
+      "tagline": "高质感的视频与图像生成模型",
+      "description": "Luma AI 推出的 Dream Machine 支持文生视频与图生视频，以自然的镜头运动和稳定的物理效果见长，同时提供 Photoshot 等图像生成能力。",
+      "website": "https://lumalabs.ai",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "图生视频"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "vidu",
+      "name": "Vidu",
+      "category": "text-to-video",
+      "tagline": "生数科技推出的视频生成大模型",
+      "description": "Vidu 由生数科技研发，采用自研的 U-ViT 架构，支持文生视频、图生视频与角色一致性参考，生成速度快，国内可直接访问。",
+      "website": "https://www.vidu.com",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "国产",
+        "参考生视频"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "jianying",
+      "name": "剪映",
+      "category": "ai-editing",
+      "tagline": "国民级视频剪辑工具",
+      "description": "剪映提供智能字幕、图文成片、AI 配音、自动踩点等一站式剪辑能力，与即梦、抖音生态深度联动，是中文短视频创作者最常用的剪辑工具之一。",
+      "website": "https://www.capcut.cn",
+      "pricing": "freemium",
+      "tags": [
+        "自动剪辑",
+        "智能字幕",
+        "国产"
+      ],
+      "featured": true,
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "heygen",
+      "name": "HeyGen",
+      "category": "digital-human",
+      "tagline": "数字人视频生成平台",
+      "description": "HeyGen 支持用照片或数字人形象快速生成多语言口播视频，内置音色克隆与翻译配音功能，广泛用于产品介绍、跨境电商和企业培训场景。",
+      "website": "https://www.heygen.com",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "音色克隆",
+        "多语言"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "elevenlabs",
+      "name": "ElevenLabs",
+      "category": "translation-dubbing",
+      "tagline": "拟真度极高的 AI 配音工具",
+      "description": "ElevenLabs 以高拟真语音合成闻名，支持 30 多种语言的文本转语音、音色克隆与视频配音（Dubbing），是内容创作者常用的配音基础设施。",
+      "website": "https://elevenlabs.io",
+      "pricing": "freemium",
+      "tags": [
+        "AI 配音",
+        "音色克隆",
+        "多语言"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "suno",
+      "name": "Suno",
+      "category": "asset-generation",
+      "tagline": "一句话生成完整歌曲",
+      "description": "Suno 可根据文字描述生成带人声的完整歌曲，支持自定义歌词、风格与曲风，是视频背景音乐与原创歌曲的常用创作工具。",
+      "website": "https://suno.com",
+      "pricing": "freemium",
+      "tags": [
+        "AI 音乐",
+        "背景音乐"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "topaz-video-ai",
+      "name": "Topaz Video AI",
+      "category": "video-enhance",
+      "tagline": "专业级视频画质增强工具",
+      "description": "Topaz Video AI 基于深度学习对视频进行放大、降噪、去模糊与帧率提升，可将低清素材修复为高清，适合老素材修复与高质量成片输出。",
+      "website": "https://www.topazlabs.com/topaz-video-ai",
+      "pricing": "paid",
+      "tags": [
+        "画质增强",
+        "老片修复",
+        "插帧"
+      ],
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "minimax-hailuo",
+      "name": "海螺AI",
+      "category": "text-to-video",
+      "tagline": "MiniMax 旗下 AI 视频平台，文字图片一键生成高清短片",
+      "description": "海螺AI 是 MiniMax 推出的 AI 视频创作平台，基于自研视频大模型，支持文生视频、图生视频与视频续写，最高输出 1080P 成片，新用户注册赠送免费点数。适合内容创作者、自媒体与营销团队快速把创意变成成片。",
+      "website": "https://hailuoai.com/",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "图生视频",
+        "国产"
+      ],
+      "access": "direct",
+      "featured": true,
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "zhipu-qingying",
+      "name": "智谱清影",
+      "category": "text-to-video",
+      "tagline": "智谱清言内置的免费视频生成，文字图片生成动态短片",
+      "description": "智谱清影是智谱 AI 基于自研 CogVideoX 模型推出的视频生成功能，内嵌于智谱清言 App 与网页端，输入文字或上传图片即可生成数秒动态视频，还支持老照片动起来等玩法。适合普通用户零成本体验文生视频。",
+      "website": "https://chatglm.cn/video",
+      "pricing": "free",
+      "tags": [
+        "文生视频",
+        "免费",
+        "国产"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "tongyi-wanxiang",
+      "name": "通义万相",
+      "category": "text-to-video",
+      "tagline": "阿里通义旗下创作平台，文生图更文生视频一站搞定",
+      "description": "通义万相是阿里巴巴通义旗下的 AI 创意平台，覆盖文生图、图生视频、视频编辑等能力，基于万相视频大模型，新用户有免费额度，付费订阅解锁更高分辨率与更长时长。适合电商、设计与内容团队批量产出素材。",
+      "website": "https://tongyi.aliyun.com/wanxiang/",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "阿里",
+        "创作平台"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "pixverse",
+      "name": "PixVerse",
+      "category": "text-to-video",
+      "tagline": "爱诗科技出品的 AI 视频生成器，模板化爆款短片工厂",
+      "description": "PixVerse 是北京爱诗科技推出的 AI 视频生成平台，自研视频基座模型已迭代至 V6，支持文生视频、图生视频、角色一致性与海量创意模板，并对外提供 API。适合短视频创作者与营销团队快速产出社媒内容。",
+      "website": "https://pixverse.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "模板",
+        "国产"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "tencent-hunyuan",
+      "name": "腾讯混元",
+      "category": "text-to-video",
+      "tagline": "腾讯混元视频生成，电影画质文生视频在线体验",
+      "description": "腾讯混元生视频是腾讯基于混元视频大模型推出的视频生成服务，网页端可在线体验文生视频，动作自然、画质接近电影级，同时通过腾讯云提供 API。适合有商业落地与批量生产需求的团队。",
+      "website": "https://aivideo.hunyuan.tencent.com/",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "腾讯",
+        "API"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "stepfun-step-video",
+      "name": "阶跃视频 Step-Video",
+      "category": "text-to-video",
+      "tagline": "阶跃星辰开源 30B 视频大模型，也可在线免费生成",
+      "description": "Step-Video 是阶跃星辰开源的 300 亿参数文生视频模型，支持中英双语提示词与 204 帧长视频，权重与推理代码完全开放，在线版阶跃视频可在跃问使用。适合开发者二次训练与视频生成研究。",
+      "website": "https://yuewen.cn/videos",
+      "pricing": "free",
+      "tags": [
+        "开源",
+        "文生视频",
+        "国产"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "haiper",
+      "name": "Haiper",
+      "category": "text-to-video",
+      "tagline": "轻量在线 AI 视频生成器，文本图片快速出片",
+      "description": "Haiper 是面向创作者的在线 AI 视频生成平台，支持文生视频、图生视频与视频重绘，提供 Web 与 iOS 客户端，新用户有免费积分。适合个人创作者快速试错、低成本产出短视频素材。",
+      "website": "https://haiper.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "文生视频",
+        "在线工具"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "domoai",
+      "name": "DomoAI",
+      "category": "text-to-video",
+      "tagline": "动漫风格擅长的 AI 视频工具，图片一键动起来",
+      "description": "DomoAI 是集成视频生成与图片动化的 AI 创作工具，擅长动漫、插画风格，可将图片转化为动态视频，也支持文生视频，免费额度即可上手。适合二次元爱好者与短视频二创。",
+      "website": "https://www.domoai.app/",
+      "pricing": "freemium",
+      "tags": [
+        "图生视频",
+        "动漫风格",
+        "二创"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "ltx-studio",
+      "name": "LTX Studio",
+      "category": "text-to-video",
+      "tagline": "Lightricks 出品 AI 电影工作室，从剧本到成片全流程",
+      "description": "LTX Studio 是 Lightricks 推出的 AI 影视制作平台，覆盖剧本、分镜、镜头控制到成片的全流程，背后是开源的 LTX 视频模型，提供免费档。适合创作者与营销团队制作有叙事结构的短片。",
+      "website": "https://ltx.io/studio",
+      "pricing": "freemium",
+      "tags": [
+        "AI影视",
+        "分镜",
+        "全流程"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "moonvalley",
+      "name": "Moonvalley",
+      "category": "text-to-video",
+      "tagline": "授权数据训练的电影级视频模型 Marey，可控镜头语言",
+      "description": "Moonvalley 是专注视频生成的研究公司，其 Marey 模型仅用授权影视素材训练，画质与运镜接近电影级，面向工作室与企业提供 API 与授权，并提供试用额度。适合对版权合规要求高的专业制作。",
+      "website": "https://www.moonvalley.com/",
+      "pricing": "freemium",
+      "tags": [
+        "电影级",
+        "正版授权",
+        "API"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "krea",
+      "name": "Krea",
+      "category": "text-to-video",
+      "tagline": "实时生成起家的创意 AI 套件，图像视频一站生成与增强",
+      "description": "Krea 是以实时生成为特色的创意 AI 平台，提供实时绘画、图像增强与视频生成，2025 年开源了 14B 实时视频模型，免费档含每日额度。适合设计师与创意人边画边出片。",
+      "website": "https://www.krea.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "实时生成",
+        "创意工具",
+        "开源模型"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "hedra",
+      "name": "Hedra",
+      "category": "text-to-video",
+      "tagline": "会说话会唱歌的数字角色视频，一张图加一段音频",
+      "description": "Hedra 是视觉 AI 实验室，其 Character 系列模型可让图片角色随音频说话、唱歌，现提供模型 API 与在线 Studio，有免费额度。适合虚拟人、口播与音乐二创内容。",
+      "website": "https://www.hedra.com/",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "口播视频",
+        "音频驱动"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "genmo-mochi",
+      "name": "Genmo Mochi",
+      "category": "text-to-video",
+      "tagline": "开源 10B 视频生成模型 Mochi，本地部署高质量出片",
+      "description": "Mochi 1 是 Genmo 开源的文生视频模型，100 亿参数、运动保真度高，代码与权重免费开放，可本地部署并提供在线 Demo。适合需要私有化视频生成能力的开发者。",
+      "website": "https://www.genmo.ai/",
+      "pricing": "free",
+      "tags": [
+        "开源",
+        "文生视频",
+        "本地部署"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "open-sora",
+      "name": "Open-Sora",
+      "category": "text-to-video",
+      "tagline": "社区开源视频生成框架，复现并扩展 Sora 类能力",
+      "description": "Open-Sora 是 HPC-AI Tech 维护的开源视频生成项目，提供从训练到推理的全流程方案，持续迭代支持更长时长与更高分辨率，完全免费。适合高校、研究者与开发者学习与二次开发视频生成。",
+      "website": "https://github.com/hpcaitech/Open-Sora",
+      "pricing": "free",
+      "tags": [
+        "开源",
+        "研究",
+        "社区"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "hitpaw",
+      "name": "HitPaw 视频增强",
+      "category": "video-enhance",
+      "tagline": "一键 AI 画质增强，模糊老视频放大到 4K",
+      "description": "HitPaw 是面向大众的 AI 媒体工具集，其视频增强器可将模糊、低分辨率视频一键放大并降噪，支持人脸、动漫专属模型，Win/Mac 客户端与在线版均有，可免费试用。适合自媒体与家庭老视频修复。",
+      "website": "https://www.hitpaw.com/",
+      "pricing": "trial",
+      "tags": [
+        "画质增强",
+        "老片修复",
+        "桌面软件"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "avclabs",
+      "name": "AVCLabs",
+      "category": "video-enhance",
+      "tagline": "AI 视频增强修复专业软件，最高可提升至 8K",
+      "description": "AVCLabs Video Enhancer AI 是专业桌面软件，基于 AI 修复模糊、噪点与低清视频，最高支持 8K 上变换与插帧，也提供免费在线工具。适合影视修复与高清化制作团队。",
+      "website": "https://www.avclabs.com/",
+      "pricing": "trial",
+      "tags": [
+        "画质增强",
+        "8K",
+        "桌面软件"
+      ],
+      "access": "unknown",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "video2x",
+      "name": "Video2X",
+      "category": "video-enhance",
+      "tagline": "开源视频超分与插帧，老视频免费放大到 4K",
+      "description": "Video2X 是开源视频增强框架，整合 waifu2x、Real-ESRGAN、RIFE 等模型，实现视频拆帧超分与补帧，仍在活跃更新，完全免费。适合有动手能力的用户批量修复老片与动漫。",
+      "website": "https://github.com/k4yt3x/video2x",
+      "pricing": "free",
+      "tags": [
+        "开源",
+        "超分",
+        "插帧"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "real-esrgan",
+      "name": "Real-ESRGAN",
+      "category": "video-enhance",
+      "tagline": "经典开源超分模型，图片视频修复通用方案",
+      "description": "Real-ESRGAN 是广受欢迎的开源图像/视频修复超分项目，提供动漫、照片等多组预训练模型，衍生出大量 GUI 工具。适合开发者集成超分能力或个人修复素材。",
+      "website": "https://github.com/xinntao/Real-ESRGAN",
+      "pricing": "free",
+      "tags": [
+        "开源",
+        "超分辨率",
+        "修复"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "gfpgan",
+      "name": "GFPGAN",
+      "category": "video-enhance",
+      "tagline": "腾讯开源人脸修复模型，模糊老照片秒变清晰",
+      "description": "GFPGAN 是腾讯 ARC 实验室开源的实用人脸修复算法，利用生成式先验还原模糊、低清人脸，广泛用于老照片修复、视频美颜与数字人预处理。适合做人脸增强的开发者。",
+      "website": "https://github.com/TencentARC/GFPGAN",
+      "pricing": "free",
+      "tags": [
+        "人脸修复",
+        "开源",
+        "腾讯"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "waifu2x",
+      "name": "waifu2x",
+      "category": "video-enhance",
+      "tagline": "元老级免费放大工具，二次元图片降噪放大",
+      "description": "waifu2x 是用卷积神经网络做图像放大的经典免费工具，针对动漫插画效果突出，也支持照片模式，网页即开即用。适合轻量放大插画与低噪修复。",
+      "website": "https://www.waifu2x.net/",
+      "pricing": "free",
+      "tags": [
+        "免费",
+        "图片放大",
+        "动漫"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "bigjpg",
+      "name": "BigJPG",
+      "category": "video-enhance",
+      "tagline": "国产 AI 图片无损放大，插画照片最高 16 倍",
+      "description": "BigJPG 是在线 AI 无损放大工具，用深度卷积神经网络放大插画与照片，支持最高 16 倍与智能降噪，免费档限额、付费提速增量。适合设计师与漫画读者放大素材。",
+      "website": "https://bigjpg.com/",
+      "pricing": "freemium",
+      "tags": [
+        "图片放大",
+        "国产",
+        "免费额度"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "tensorpix",
+      "name": "TensorPix",
+      "category": "video-enhance",
+      "tagline": "在线视频增强 3 分钟出片，无需安装打开网页即试",
+      "description": "TensorPix 是在线 AI 视频与图像增强平台，支持超分、降噪、插帧与人脸修复，无需安装，打开网页几分钟出片，提供免费试用与订阅计划。适合不想装软件的个人用户修复视频。",
+      "website": "https://tensorpix.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "在线增强",
+        "超分",
+        "插帧"
+      ],
+      "access": "unknown",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "media-io",
+      "name": "Media.io",
+      "category": "video-enhance",
+      "tagline": "万兴旗下在线 AI 视频增强，老片一键转 4K",
+      "description": "Media.io 是万兴科技的在线 AI 创作平台，其视频增强器支持老录像修复、去噪、锐化、人像优化与色彩校正，浏览器内完成，有免费额度。适合家庭录像修复与社媒内容提质。",
+      "website": "https://www.media.io/",
+      "pricing": "freemium",
+      "tags": [
+        "在线工具",
+        "老片修复",
+        "国产"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "deoldify",
+      "name": "DeOldify",
+      "category": "video-enhance",
+      "tagline": "开源老照片老视频上色，黑白素材重焕色彩",
+      "description": "DeOldify 是基于 NoGAN 训练方法的开源上色项目，可为黑白图像与视频自动上色，提供多种模型与在线 Demo，完全免费。适合历史影像修复与创意上色。",
+      "website": "https://github.com/jantic/DeOldify",
+      "pricing": "free",
+      "tags": [
+        "开源",
+        "上色",
+        "老片修复"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "adobe-podcast",
+      "name": "Adobe Podcast 语音增强",
+      "category": "video-enhance",
+      "tagline": "免费 AI 语音降噪，手机录音秒变录音棚音质",
+      "description": "Adobe Podcast 的 Enhance Speech 是免费的 AI 音频增强工具，一键去除录音中的噪音、回声与混响，让人声接近录音棚效果。适合播客、口播视频的音频修复。",
+      "website": "https://podcast.adobe.com/en/enhance",
+      "pricing": "free",
+      "tags": [
+        "音频降噪",
+        "免费",
+        "Adobe"
+      ],
+      "access": "unknown",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "descript",
+      "name": "Descript",
+      "category": "ai-editing",
+      "tagline": "像编辑文字一样剪辑音视频的 AI 工具",
+      "description": "Descript 是美国 Descript 公司开发的音视频编辑器，先自动转录录音，再让用户像改文档一样删改文字完成剪辑，内置 AI 粗剪、声音克隆与多平台片段重组，适合播客、教程和团队视频生产。",
+      "website": "https://www.descript.com",
+      "pricing": "freemium",
+      "tags": [
+        "文字剪辑",
+        "AI转录",
+        "播客工具"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "opus-clip",
+      "name": "Opus Clip",
+      "category": "ai-editing",
+      "tagline": "一键把长视频剪成爆款短视频",
+      "description": "Opus Clip 是 Opus 团队开发的长视频切片工具，AI 自动识别播客、访谈中的高光时刻，重组为竖版短片并添加动态字幕、AI B-roll 与传播力评分，支持一键发布到 TikTok、Shorts 等平台，适合短视频创作者与矩阵运营。",
+      "website": "https://www.opus.pro",
+      "pricing": "freemium",
+      "tags": [
+        "长视频切片",
+        "自动字幕",
+        "短视频"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "veed-io",
+      "name": "VEED",
+      "category": "ai-editing",
+      "tagline": "浏览器里的在线 AI 视频工作台",
+      "description": "VEED 是英国公司推出的在线视频创作平台，在浏览器中完成自动字幕、文本剪辑、AI 配音、眼神校正、降噪与品牌模板套用，无需安装软件，适合社媒运营、营销团队与教育用户快速出片。",
+      "website": "https://www.veed.io",
+      "pricing": "freemium",
+      "tags": [
+        "在线剪辑",
+        "自动字幕",
+        "AI配音"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "submagic",
+      "name": "Submagic",
+      "category": "ai-editing",
+      "tagline": "短视频自动字幕与 AI 成片利器",
+      "description": "Submagic 是面向短视频创作者的 AI 剪辑工具，自动生成多语言字幕、用 Magic Clips 将长视频切成多条短片，并支持去静音、加 B-roll 与定时发布，帮个人和团队大幅提升剪辑效率。",
+      "website": "https://www.submagic.co",
+      "pricing": "trial",
+      "tags": [
+        "自动字幕",
+        "短视频切片",
+        "AI剪辑"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "munch",
+      "name": "Munch",
+      "category": "ai-editing",
+      "tagline": "从长视频提取高光短片的 AI 营销助手",
+      "description": "Munch 是以色列团队开发的 AI 社媒营销平台，分析长视频内容后自动提取高光短片，生成配套文案与发布排期，帮企业和创作者用较少时间维持多平台更新，适合内容营销团队。",
+      "website": "https://www.getmunch.com",
+      "pricing": "trial",
+      "tags": [
+        "高光切片",
+        "社媒营销",
+        "AI剪辑"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "gling",
+      "name": "Gling",
+      "category": "ai-editing",
+      "tagline": "自动删除废镜、静音与口癖的剪辑工具",
+      "description": "Gling 是专为 YouTube 口播创作者打造的桌面级 AI 剪辑软件，自动检测并删除废镜、静音和嗯啊等填充词，可导出多轨道时间线，节省口播与播客视频的粗剪时间。",
+      "website": "https://www.gling.ai",
+      "pricing": "trial",
+      "tags": [
+        "口播剪辑",
+        "去静音",
+        "自动剪辑"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "davinci-resolve",
+      "name": "DaVinci Resolve",
+      "category": "ai-editing",
+      "tagline": "免费的专业级影视剪辑调色软件",
+      "description": "DaVinci Resolve（达芬奇）是 Blackmagic Design 推出的专业影视后期软件，集成剪辑、调色、特效与音频，免费版即支持 Ultra HD 输出与 AI 文本剪辑、智能字幕，是专业创作者的零成本选择。",
+      "website": "https://www.blackmagicdesign.com/products/davinciresolve",
+      "pricing": "free",
+      "tags": [
+        "专业剪辑",
+        "调色",
+        "免费"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "pictory",
+      "name": "Pictory",
+      "category": "ai-editing",
+      "tagline": "文字、文章、PPT 一键转成视频",
+      "description": "Pictory 是 AI 视频生成平台，可把脚本、文章、PPT、图片或链接转成带 AI 配音、自动字幕与素材匹配的成片，内置 AI Studio 生成视觉素材，适合营销、教学与内容团队批量生产。",
+      "website": "https://pictory.ai",
+      "pricing": "freemium",
+      "tags": [
+        "图文成片",
+        "文字转视频",
+        "AI配音"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "fliki",
+      "name": "Fliki",
+      "category": "ai-editing",
+      "tagline": "文字转视频与 2000+ AI 配音工具",
+      "description": "Fliki 是文字转视频工具，提供 2000+ AI 声音、80+ 语言配音与声音克隆，输入文案即可匹配画面、音乐与字幕成片，还支持数字分身出镜，适合无真人拍摄的短视频与培训内容。",
+      "website": "https://fliki.ai",
+      "pricing": "freemium",
+      "tags": [
+        "文字转视频",
+        "AI配音",
+        "数字分身"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "wondershare-miao",
+      "name": "万兴喵影",
+      "category": "ai-editing",
+      "tagline": "国产易上手的 AI 视频剪辑软件",
+      "description": "万兴喵影是万兴科技旗下的国产 AI 视频剪辑软件，在时间线剪辑基础上提供 AI 字幕、智能抠像、素材分析与调色等能力，界面友好、上手快，适合新手到进阶创作者日常剪辑与社媒出片。",
+      "website": "https://miao.wondershare.cn/",
+      "pricing": "freemium",
+      "tags": [
+        "国产软件",
+        "AI剪辑",
+        "桌面剪辑"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "bcut",
+      "name": "必剪",
+      "category": "ai-editing",
+      "tagline": "B 站官方剪辑工具，一键投稿",
+      "description": "必剪是哔哩哔哩官方推出的免费剪辑工具，支持语音一键转字幕、输入口播文案自动匹配素材成片，提供海量 B 站热门素材与音乐，账号互通、一键投稿，适合 B 站 UP 主与短视频创作者。",
+      "website": "https://bcut.bilibili.cn/",
+      "pricing": "free",
+      "tags": [
+        "B站工具",
+        "免费剪辑",
+        "语音字幕"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "kwaiying",
+      "name": "快影",
+      "category": "ai-editing",
+      "tagline": "快手官方 AI 剪辑与模板创作工具",
+      "description": "快影是快手官方的 AI 视频剪辑工具，覆盖分割、变速、智能配音、语音加字幕等基础剪辑，并提供 AI 动漫效果、海量模板一键剪同款，主打移动端快速创作与分享。",
+      "website": "https://www.kwaiying.com/",
+      "pricing": "freemium",
+      "tags": [
+        "移动剪辑",
+        "快手系",
+        "模板创作"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "synthesia",
+      "name": "Synthesia",
+      "category": "digital-human",
+      "tagline": "140+ 语言的企业级 AI 数字人平台",
+      "description": "Synthesia 是英国企业级 AI 视频平台，提供数百个数字人形象与多语言配音，可将文档、PPT 或网页链接一键转为口播视频，支持交互式数字人与 API，适合培训、营销与内部沟通。",
+      "website": "https://www.synthesia.io",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "多语言",
+        "企业培训"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "d-id",
+      "name": "D-ID",
+      "category": "digital-human",
+      "tagline": "照片一键生成说话数字人视频",
+      "description": "D-ID 是数字人视频平台，其 Creative Reality Studio 能把一张照片或文本转为唇形自然的说话视频，支持实时交互头像与开发者 API，适合规模化口播、虚拟客服与创意内容。",
+      "website": "https://www.d-id.com",
+      "pricing": "trial",
+      "tags": [
+        "数字人",
+        "照片说话",
+        "API"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "colossyan",
+      "name": "Colossyan",
+      "category": "digital-human",
+      "tagline": "数字人培训视频与课程制作平台",
+      "description": "Colossyan 是数字人视频平台，主打企业培训场景，提供数百个数字人形象、PDF/PPT 一键转视频、语音克隆、多语言翻译与互动测验，可导出 SCORM 接入学习管理系统。",
+      "website": "https://www.colossyan.com",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "培训视频",
+        "多语言"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "hour-one",
+      "name": "Hour One",
+      "category": "digital-human",
+      "tagline": "数字人主持的企业视频生成平台",
+      "description": "Hour One 是数字人视频平台，用专业主持人形象将脚本、文档转为口播视频，支持品牌模板与多语言本地化，面向企业培训、内部沟通与营销内容批量制作。",
+      "website": "https://hourone.ai",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "企业视频",
+        "口播生成"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "captions",
+      "name": "Captions",
+      "category": "digital-human",
+      "tagline": "移动端 AI 剪辑与数字分身工具",
+      "description": "Captions 是移动端 AI 视频工具，提供 AI 一键剪辑、自动字幕、多语言翻译、眼神校正与 AI 数字分身，并推出 Mirage 工作室功能，深受短视频与口播创作者欢迎。",
+      "website": "https://www.captions.ai",
+      "pricing": "freemium",
+      "tags": [
+        "移动工具",
+        "AI剪辑",
+        "数字分身"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "vidnoz",
+      "name": "Vidnoz AI",
+      "category": "digital-human",
+      "tagline": "1900+ 数字人的免费视频生成平台",
+      "description": "Vidnoz AI 是在线数字人视频生成平台，提供大量数字人形象、AI 声音与模板，支持数字分身定制、声音克隆与多语言视频翻译，有免费额度，适合营销、教育与电商短视频。",
+      "website": "https://www.vidnoz.com",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "免费额度",
+        "视频翻译"
+      ],
+      "access": "unknown",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "akool",
+      "name": "AKOOL",
+      "category": "digital-human",
+      "tagline": "一站式 AI 视频与数字人创作套件",
+      "description": "AKOOL 是一站式 AI 视频套件，涵盖数字人视频、Talking Photo、实时交互数字人、换脸与视频翻译等能力，并提供开放 API，面向企业营销与开发者快速集成。",
+      "website": "https://www.akool.com",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "换脸",
+        "API"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "tencent-zhiying",
+      "name": "腾讯智影",
+      "category": "digital-human",
+      "tagline": "腾讯云端数字人播报与智能剪辑",
+      "description": "腾讯智影是腾讯推出的云端智能视频创作平台，整合数字人播报、文章转视频、文本配音、智能字幕与在线剪辑，免安装即可创作，适合自媒体、中小企业与教育培训场景。",
+      "website": "https://zenvideo.qq.com",
+      "pricing": "freemium",
+      "tags": [
+        "数字人播报",
+        "云端剪辑",
+        "腾讯"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "senseavatar",
+      "name": "商汤如影 SenseAvatar",
+      "category": "digital-human",
+      "tagline": "商汤大模型数字人视频生成平台",
+      "description": "商汤如影（SenseAvatar）是商汤科技基于日日新大模型的数字人平台，提供版权数字人形象与多语种音色，支持形象定制、一句话成片与视频翻译，适合新闻播报与营销内容。",
+      "website": "https://www.sensetime.com/cn/product-detail?categoryId=51134279",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "商汤科技",
+        "口播视频"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "laihua",
+      "name": "来画",
+      "category": "digital-human",
+      "tagline": "国产 AI 动画与数字人创作平台",
+      "description": "来画是国产 AI 动画与数字人创作平台，输入文字或图片即可生成动画视频与数字人口播，适合企业宣传、自媒体与教育科普。",
+      "website": "https://www.laihua.com/",
+      "pricing": "freemium",
+      "tags": [
+        "动画视频",
+        "数字人",
+        "国产平台"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "guiji",
+      "name": "硅基智能",
+      "category": "digital-human",
+      "tagline": "企业级数字人克隆与直播平台",
+      "description": "硅基智能是数字人平台，提供形象克隆、声音克隆、数字人直播与 AI 矩阵分发等能力，面向企业营销、IP 打造与数字化转型。",
+      "website": "https://szguiji.cn/",
+      "pricing": "trial",
+      "tags": [
+        "数字人",
+        "形象克隆",
+        "声音克隆"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "xfzhizuo",
+      "name": "讯飞智作",
+      "category": "digital-human",
+      "tagline": "讯飞数字人口播与 AI 配音平台",
+      "description": "讯飞智作是科大讯飞旗下的数字人视频平台，基于星火大模型与超拟人 TTS，支持数字人形象与声音定制、PPT 一键成片与多风格 AI 配音，适合新闻播报、企业宣传与教育培训。",
+      "website": "https://www.xfzhizuo.cn/",
+      "pricing": "freemium",
+      "tags": [
+        "数字人",
+        "AI配音",
+        "科大讯飞"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "virbo",
+      "name": "万兴播爆",
+      "category": "digital-human",
+      "tagline": "电商带货数字人视频生成 Agent",
+      "description": "万兴播爆是万兴科技打造的营销视频 Agent，围绕人货场匹配，一句话、一张图或一个链接即可生成数字人带货视频，适合电商商家、带货博主与矩阵号运营。",
+      "website": "https://virbo.wondershare.cn/",
+      "pricing": "trial",
+      "tags": [
+        "数字人",
+        "电商带货",
+        "营销视频"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "rask",
+      "name": "Rask",
+      "category": "translation-dubbing",
+      "tagline": "AI视频翻译配音，支持135+语言与口型同步",
+      "description": "Rask 是面向全球团队的 AI 视频本地化平台，可将视频翻译成上百种语言，并用克隆的原声音色自动配音。支持多说话人识别、口型同步与自动字幕，也提供 API 供规模化本地化处理。",
+      "website": "https://www.rask.ai/",
+      "pricing": "trial",
+      "tags": [
+        "视频翻译",
+        "AI配音",
+        "口型同步"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "murf",
+      "name": "Murf AI",
+      "category": "translation-dubbing",
+      "tagline": "200+拟真音色的AI配音与TTS平台",
+      "description": "Murf AI 提供 200 多种覆盖数十种语言的拟真 AI 音色，可用于视频配音、有声内容与实时语音代理。支持音调语速精细调节、AI 配音翻译与低延迟 TTS API，深受企业内容团队青睐。",
+      "website": "https://murf.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "TTS",
+        "AI配音",
+        "音色库"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "playht",
+      "name": "PlayHT",
+      "category": "translation-dubbing",
+      "tagline": "800+超逼真AI音色语音生成平台",
+      "description": "PlayHT 是在线文字转语音平台，提供数百种拟真 AI 音色、多语言口音与多说话人对话生成。支持语音克隆、情感风格与 API 接入，适合视频配音、播客与对话式 AI 场景。",
+      "website": "https://playht.co/",
+      "pricing": "freemium",
+      "tags": [
+        "TTS",
+        "语音克隆",
+        "配音"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "speechify",
+      "name": "Speechify",
+      "category": "translation-dubbing",
+      "tagline": "全平台AI朗读与文本转语音工具",
+      "description": "Speechify 是跨平台语音 AI 助手，可将文档、网页与 PDF 朗读为自然语音，支持数十种语言与上千种音色。除文本转语音外还提供语音听写等功能，免费版即可满足基础配音需求。",
+      "website": "https://speechify.com/",
+      "pricing": "freemium",
+      "tags": [
+        "TTS",
+        "AI朗读",
+        "播客"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "cartesia",
+      "name": "Cartesia",
+      "category": "translation-dubbing",
+      "tagline": "超低延迟实时语音合成TTS模型",
+      "description": "Cartesia 基于状态空间模型（SSM）提供实时语音合成与语音识别 API，延迟极低，适合直播配音与语音代理场景。提供每月免费额度，支持音色克隆与企业私有化部署。",
+      "website": "https://www.cartesia.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "TTS",
+        "实时语音",
+        "API"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "kapwing",
+      "name": "Kapwing",
+      "category": "translation-dubbing",
+      "tagline": "带AI配音翻译的在线视频编辑器",
+      "description": "Kapwing 是浏览器端在线视频编辑器，提供字幕生成、AI 配音与视频翻译等工具，支持团队协作。可从提示词直接生成带动画、配乐与字幕的视频成片，营销与教育团队使用广泛。",
+      "website": "https://www.kapwing.com/",
+      "pricing": "freemium",
+      "tags": [
+        "视频翻译",
+        "AI配音",
+        "字幕"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "dubverse",
+      "name": "Dubverse",
+      "category": "translation-dubbing",
+      "tagline": "支持60+语言的AI视频配音字幕平台",
+      "description": "Dubverse 是在线 AI 配音平台，可将视频翻译为多种语言并生成拟人声配音，同时支持自动字幕与 TTS。提供多种可定制音色、品牌声音克隆与 API，广泛用于本地化场景。",
+      "website": "https://dubverse.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "视频配音",
+        "多语言翻译",
+        "字幕"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "ttsmaker",
+      "name": "TTSMaker（马克配音）",
+      "category": "translation-dubbing",
+      "tagline": "免费在线多语言文字转语音工具",
+      "description": "TTSMaker（马克配音）是免费在线语音合成平台，支持数十种语言、上百种音色风格，专为短视频配音设计。无需注册即可生成并下载 MP3，另有 Pro 版解锁无限语音与高级功能。",
+      "website": "https://ttsmaker.cn/",
+      "pricing": "free",
+      "tags": [
+        "TTS",
+        "免费",
+        "短视频配音"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "moyin",
+      "name": "魔音工坊",
+      "category": "translation-dubbing",
+      "tagline": "短视频与有声书AI配音热门平台",
+      "description": "魔音工坊是在线 AI 配音与文字转语音平台，提供大量真人质感主播音色与多语言配音，支持声音克隆与情绪调控。广泛用于短视频、有声书和广告配音，设多档套餐。",
+      "website": "https://www.moyin.com/",
+      "pricing": "freemium",
+      "tags": [
+        "AI配音",
+        "声音克隆",
+        "国产"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "midjourney",
+      "name": "Midjourney",
+      "category": "asset-generation",
+      "tagline": "高审美画质的AI图像生成平台",
+      "description": "Midjourney 是社区驱动的 AI 图像生成平台，以高审美质量出图闻名，适合插画、概念设计与视频封面制作。需订阅付费使用，支持网页与 Discord 双端创作。",
+      "website": "https://www.midjourney.com/",
+      "pricing": "paid",
+      "tags": [
+        "图片生成",
+        "封面图",
+        "概念设计"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "ideogram",
+      "name": "Ideogram",
+      "category": "asset-generation",
+      "tagline": "文字渲染最准的AI图像生成平台",
+      "description": "Ideogram 以在图像中准确渲染可读文字著称，适合海报、Logo 与封面图设计。提供创作工作台、API 与 Agent 集成，免费版每日赠送积分，付费订阅解锁更高用量。",
+      "website": "https://ideogram.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "图片生成",
+        "海报文字",
+        "封面图"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "leonardo",
+      "name": "Leonardo.Ai",
+      "category": "asset-generation",
+      "tagline": "创作者友好的AI图像与视频生成平台",
+      "description": "Leonardo.Ai 是面向创作者的生成式平台，内置自有及第三方模型，支持图像生成、视频动画与精准编辑。每日赠送免费额度，适合游戏美术、概念设计与社交媒体素材批量产出。",
+      "website": "https://www.leonardo.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "图片生成",
+        "AI视频",
+        "游戏美术"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "adobe-firefly",
+      "name": "Adobe Firefly",
+      "category": "asset-generation",
+      "tagline": "一站式AI创意生成工作室",
+      "description": "Adobe Firefly 是 Adobe 的一站式 AI 创意工作室，可生成图像、视频、音频与矢量素材，聚合数十个模型。免费版每月赠送生成积分，付费版与 Creative Cloud 深度集成，商用授权清晰。",
+      "website": "https://firefly.adobe.com/",
+      "pricing": "freemium",
+      "tags": [
+        "图片生成",
+        "商用授权",
+        "创意工具"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "flux",
+      "name": "FLUX（Black Forest Labs）",
+      "category": "asset-generation",
+      "tagline": "开源权重领先的FLUX图像模型",
+      "description": "Black Forest Labs 出品的 FLUX 是领先的开源权重图像模型系列，支持文生图、图生图与图像编辑，并已扩展至视频与音频生成。提供在线 Playground 与 API，也可下载权重自部署。",
+      "website": "https://bfl.ai/",
+      "pricing": "freemium",
+      "tags": [
+        "图片生成",
+        "开源模型",
+        "API"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "udio",
+      "name": "Udio",
+      "category": "asset-generation",
+      "tagline": "人声逼真的AI音乐生成平台",
+      "description": "Udio 是 AI 音乐生成平台，输入描述即可生成带人声歌词的完整歌曲，曲风覆盖流行、电子、爵士等。编辑工具支持上传音频二次创作，免费版可体验，付费订阅解锁商用与更多积分。",
+      "website": "https://www.udio.com/",
+      "pricing": "freemium",
+      "tags": [
+        "AI音乐",
+        "背景音乐",
+        "歌曲生成"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "stable-audio",
+      "name": "Stable Audio",
+      "category": "asset-generation",
+      "tagline": "Stability旗下AI音乐与音效生成器",
+      "description": "Stable Audio 是 Stability AI 的音频生成产品，可生成数分钟的音乐、循环与音效，支持音频到音频与局部重绘。提供网页版与 API，注册送免费积分，订阅制解锁更多额度。",
+      "website": "https://stableaudio.com/",
+      "pricing": "freemium",
+      "tags": [
+        "AI音乐",
+        "音效生成",
+        "API"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "mubert",
+      "name": "Mubert",
+      "category": "asset-generation",
+      "tagline": "按场景情绪生成免版税背景音乐",
+      "description": "Mubert 面向视频与游戏场景，按情绪、风格或文字提示生成免版税背景音乐与循环，支持 API 集成。免费档可用于非商用内容，付费档开放商用授权与无损下载。",
+      "website": "https://mubert.com/",
+      "pricing": "freemium",
+      "tags": [
+        "背景音乐",
+        "免版税",
+        "音效"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "epidemic-sound",
+      "name": "Epidemic Sound",
+      "category": "asset-generation",
+      "tagline": "5.5万首正版曲库与25万音效",
+      "description": "Epidemic Sound 是老牌正版音乐与音效授权平台，拥有数万首曲目与海量音效，并提供 AI 配乐等工具。订阅制服务，提供免费试用，全球商业团队广泛使用。",
+      "website": "https://www.epidemicsound.com/",
+      "pricing": "trial",
+      "tags": [
+        "背景音乐",
+        "音效素材",
+        "正版授权"
+      ],
+      "access": "proxy",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    },
+    {
+      "slug": "liblibai",
+      "name": "LiblibAI（哩布哩布AI）",
+      "category": "asset-generation",
+      "tagline": "国内头部AI模型社区与在线绘图平台",
+      "description": "LiblibAI 是国内有影响力的 AI 创作平台，聚合大量原创模型，提供在线绘图、视频生成与 LoRA 训练。适合找模型、跑工作流与产出设计素材，支持免费使用。",
+      "website": "https://www.liblib.art/",
+      "pricing": "freemium",
+      "tags": [
+        "图片生成",
+        "模型社区",
+        "国产"
+      ],
+      "access": "direct",
+      "addedAt": "2026-10-12",
+      "updatedAt": "2026-10-12"
+    }
+  ]
+}
