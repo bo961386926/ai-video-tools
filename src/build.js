@@ -71,7 +71,7 @@ function validate(data) {
       if (t[d] && !/^\d{4}-\d{2}-\d{2}$/.test(t[d])) errors.push(`${p}.${d} 日期格式应为 YYYY-MM-DD：${t[d]}`);
     }
     if (t.logo && /^https?:\/\//.test(t.logo) === false) {
-      const localPath = join(ROOT, 'src/assets', t.logo.replace(/^\/+/, ''));
+      const localPath = join(ROOT, 'src', t.logo.replace(/^\/+/, ''));
       if (!existsSync(localPath)) warnings.push(`${p}(${t.slug}).logo 本地文件不存在，将回退为首字母头像`);
     }
     if (t.access && !['direct', 'proxy', 'unknown'].includes(t.access)) {

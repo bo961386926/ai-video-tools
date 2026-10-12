@@ -65,7 +65,8 @@
       ],
       "featured": true,
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/runway.png"
     },
     {
       "slug": "kling",
@@ -82,7 +83,8 @@
       ],
       "featured": true,
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/kling.png"
     },
     {
       "slug": "jimeng",
@@ -99,7 +101,8 @@
       ],
       "featured": true,
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/jimeng.ico"
     },
     {
       "slug": "sora",
@@ -114,7 +117,8 @@
         "长视频"
       ],
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/sora.png"
     },
     {
       "slug": "pika",
@@ -160,7 +164,8 @@
         "参考生视频"
       ],
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/vidu.png"
     },
     {
       "slug": "jianying",
@@ -177,7 +182,8 @@
       ],
       "featured": true,
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/jianying.ico"
     },
     {
       "slug": "heygen",
@@ -209,7 +215,8 @@
         "多语言"
       ],
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/elevenlabs.png"
     },
     {
       "slug": "suno",
@@ -240,7 +247,8 @@
         "插帧"
       ],
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/topaz-video-ai.png"
     },
     {
       "slug": "minimax-hailuo",
@@ -258,7 +266,8 @@
       "access": "direct",
       "featured": true,
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/minimax-hailuo.png"
     },
     {
       "slug": "zhipu-qingying",
@@ -275,7 +284,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/zhipu-qingying.ico"
     },
     {
       "slug": "tongyi-wanxiang",
@@ -292,7 +302,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/tongyi-wanxiang.svg"
     },
     {
       "slug": "pixverse",
@@ -309,7 +320,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/pixverse.png"
     },
     {
       "slug": "tencent-hunyuan",
@@ -326,7 +338,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/tencent-hunyuan.png"
     },
     {
       "slug": "stepfun-step-video",
@@ -376,7 +389,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/domoai.png"
     },
     {
       "slug": "ltx-studio",
@@ -410,7 +424,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/moonvalley.png"
     },
     {
       "slug": "krea",
@@ -461,7 +476,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/genmo-mochi.ico"
     },
     {
       "slug": "open-sora",
@@ -478,7 +494,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/open-sora.png"
     },
     {
       "slug": "hitpaw",
@@ -495,7 +512,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/hitpaw.ico"
     },
     {
       "slug": "avclabs",
@@ -512,7 +530,8 @@
       ],
       "access": "unknown",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/avclabs.png"
     },
     {
       "slug": "video2x",
@@ -529,7 +548,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/video2x.png"
     },
     {
       "slug": "real-esrgan",
@@ -546,7 +566,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/real-esrgan.png"
     },
     {
       "slug": "gfpgan",
@@ -563,7 +584,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/gfpgan.png"
     },
     {
       "slug": "waifu2x",
@@ -580,7 +602,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/waifu2x.ico"
     },
     {
       "slug": "bigjpg",
@@ -597,7 +620,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/bigjpg.png"
     },
     {
       "slug": "tensorpix",
@@ -614,7 +638,8 @@
       ],
       "access": "unknown",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/tensorpix.ico"
     },
     {
       "slug": "media-io",
@@ -648,7 +673,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/deoldify.png"
     },
     {
       "slug": "adobe-podcast",
@@ -665,7 +691,8 @@
       ],
       "access": "unknown",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/adobe-podcast.svg"
     },
     {
       "slug": "descript",
@@ -682,7 +709,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/descript.png"
     },
     {
       "slug": "opus-clip",
@@ -699,7 +727,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/opus-clip.png"
     },
     {
       "slug": "veed-io",
@@ -733,7 +762,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/submagic.png"
     },
     {
       "slug": "munch",
@@ -750,7 +780,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/munch.png"
     },
     {
       "slug": "gling",
@@ -767,7 +798,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/gling.png"
     },
     {
       "slug": "davinci-resolve",
@@ -784,7 +816,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/davinci-resolve.ico"
     },
     {
       "slug": "pictory",
@@ -818,7 +851,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/fliki.png"
     },
     {
       "slug": "wondershare-miao",
@@ -835,7 +869,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/wondershare-miao.png"
     },
     {
       "slug": "bcut",
@@ -852,7 +887,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/bcut.ico"
     },
     {
       "slug": "kwaiying",
@@ -869,7 +905,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/kwaiying.ico"
     },
     {
       "slug": "synthesia",
@@ -886,7 +923,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/synthesia.png"
     },
     {
       "slug": "d-id",
@@ -903,7 +941,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/d-id.png"
     },
     {
       "slug": "colossyan",
@@ -920,7 +959,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/colossyan.png"
     },
     {
       "slug": "hour-one",
@@ -954,7 +994,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/captions.png"
     },
     {
       "slug": "vidnoz",
@@ -971,7 +1012,8 @@
       ],
       "access": "unknown",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/vidnoz.png"
     },
     {
       "slug": "akool",
@@ -988,7 +1030,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/akool.png"
     },
     {
       "slug": "tencent-zhiying",
@@ -1022,7 +1065,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/senseavatar.ico"
     },
     {
       "slug": "laihua",
@@ -1039,7 +1083,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/laihua.png"
     },
     {
       "slug": "guiji",
@@ -1073,7 +1118,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/xfzhizuo.png"
     },
     {
       "slug": "virbo",
@@ -1090,7 +1136,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/virbo.png"
     },
     {
       "slug": "rask",
@@ -1107,7 +1154,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/rask.png"
     },
     {
       "slug": "murf",
@@ -1124,7 +1172,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/murf.png"
     },
     {
       "slug": "playht",
@@ -1141,7 +1190,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/playht.png"
     },
     {
       "slug": "speechify",
@@ -1175,7 +1225,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/cartesia.png"
     },
     {
       "slug": "kapwing",
@@ -1209,7 +1260,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/dubverse.svg"
     },
     {
       "slug": "ttsmaker",
@@ -1226,7 +1278,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/ttsmaker.ico"
     },
     {
       "slug": "moyin",
@@ -1243,7 +1296,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/moyin.ico"
     },
     {
       "slug": "midjourney",
@@ -1328,7 +1382,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/flux.png"
     },
     {
       "slug": "udio",
@@ -1345,7 +1400,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/udio.png"
     },
     {
       "slug": "stable-audio",
@@ -1362,7 +1418,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/stable-audio.png"
     },
     {
       "slug": "mubert",
@@ -1379,7 +1436,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/mubert.png"
     },
     {
       "slug": "epidemic-sound",
@@ -1396,7 +1454,8 @@
       ],
       "access": "proxy",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/epidemic-sound.ico"
     },
     {
       "slug": "liblibai",
@@ -1413,7 +1472,8 @@
       ],
       "access": "direct",
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "logo": "assets/logos/liblibai.ico"
     }
   ]
 }

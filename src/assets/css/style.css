@@ -141,6 +141,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: inline-flex; align-items: center; justify-content: center;
   width: 48px; height: 48px; border-radius: 10px; flex: none;
   background: linear-gradient(135deg, #dbe4ff, #e8efff);
+  border: 1px solid rgba(16, 24, 40, 0.05);
   color: var(--primary-strong); font-size: 22px; font-weight: 700;
 }
 

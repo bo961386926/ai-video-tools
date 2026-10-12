@@ -61,6 +61,15 @@ npm run preview        # 构建后启动本地服务器（默认 http://localhos
 - 全部链接为相对路径，可直接部署到 GitHub Pages 项目子路径或自定义域名
 - 构建时自动做全站死链检测，有死链则构建失败
 
+## 工具图标
+
+图标在构建期抓取并本地化存储在 `src/assets/logos/{slug}.png`，不依赖任何外部图标服务（国内访问稳定、无额外请求）。
+
+- 新工具入库后运行 `node src/fetch-logos.mjs` 自动补图标（官网 HTML 解析 → `/favicon.ico` 两级策略）
+- 抓不到的走「首字母头像」兜底：按 slug 哈希取柔和色板，视觉统一
+- 大图标可用 macOS `sips -Z 64 xxx.png` 压缩；`.ico` 也可用 `sips -s format png -Z 64` 转 PNG
+- 当前 81 款中已有 60+ 款本地图标，剩余海外站点图标可在任意网络通畅的机器上跑一次脚本补全
+
 ## 部署
 
 ### Vercel（推荐，配置最少）

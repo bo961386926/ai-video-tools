@@ -10,8 +10,16 @@ export const esc = (s) =>
 export const PRICING_LABEL = { free: '免费', freemium: '免费+付费', paid: '付费', trial: '限时试用' };
 export const ACCESS_LABEL = { direct: '国内可直接访问', proxy: '需特殊网络环境', unknown: '访问情况待核验' };
 
-export const initialAvatar = (name) =>
-  `<span class="tool-avatar" aria-hidden="true">${esc([...(name || '?')][0] || '?')}</span>`;
+/** 柔和色板：按 slug 哈希取色，让首字母头像不重样 */
+const AVATAR_COLORS = ['#EEF2FF', '#FEF3C7', '#ECFDF5', '#FDF2F8', '#EFF6FF', '#F0FDF4', '#FFF7ED', '#F5F3FF', '#F0F9FF'];
+const avatarColor = (seed) => {
+  let h = 0;
+  for (const ch of String(seed || '')) h = (h * 31 + ch.codePointAt(0)) >>> 0;
+  return AVATAR_COLORS[h % AVATAR_COLORS.length];
+};
+
+export const initialAvatar = (name, slug) =>
+  `<span class="tool-avatar" style="background:${avatarColor(slug || name)}" aria-hidden="true">${esc([...(name || '?')][0] || '?')}</span>`;
 
 export const toolLogo = (tool, depth = 1) => {
   const prefix = '../'.repeat(depth);
@@ -19,7 +27,7 @@ export const toolLogo = (tool, depth = 1) => {
     const src = /^https?:\/\//.test(tool.logo) ? tool.logo : `${prefix}${tool.logo.replace(/^\/+/, '')}`;
     return `<img class="tool-logo" src="${esc(src)}" alt="${esc(tool.name)} logo" width="48" height="48" loading="lazy" decoding="async">`;
   }
-  return initialAvatar(tool.name);
+  return initialAvatar(tool.name, tool.slug);
 };
 
 export const pricingBadge = (pricing) => {
