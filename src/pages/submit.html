@@ -1,6 +1,12 @@
 <h1>提交工具</h1>
 <p>发现了好用但本站还没收录的 AI 视频创作工具？欢迎提交。<strong>免费收录，不收取任何费用，也绝无付费排名。</strong></p>
 
+<div class="submit-actions">
+  <a class="btn btn-submit" href="{{submitForm}}" target="_blank" rel="noopener">填写在线提交表单 →</a>
+  <a class="btn btn-ghost" href="{{issueNew}}" target="_blank" rel="noopener">在 GitHub 提 Issue</a>
+</div>
+<p class="submit-hint">推荐用在线表单，约 1 分钟填完，提交后自动汇总成表格便于我们核对；习惯用 GitHub 的也可以直接提 Issue，两种方式我们都会看。</p>
+
 <h2>提交前请确认</h2>
 <ul>
   <li>工具与 AI 视频创作相关（生成、剪辑、数字人、配音、素材等）；</li>
@@ -9,17 +15,25 @@
   <li>暂不接受套壳、镜像、纯采集站。</li>
 </ul>
 
-<h2>提交方式</h2>
-<p>在 GitHub 仓库提交一个 Issue，使用「新工具提交」模板，按模板填写以下信息：</p>
+<h2>需要准备的信息</h2>
+<p>表单里要填的就是下面这些，建议先把官网链接复制好再开始填：</p>
 <ul>
-  <li>工具名称与官网链接；</li>
-  <li>一句话简介（它在视频创作流程中解决什么问题）；</li>
-  <li>定价模式（免费 / 免费+付费 / 付费）；</li>
-  <li>国内是否可以直接访问；</li>
-  <li>主要标签（如：文生视频、智能字幕、音色克隆）。</li>
+  <li><strong>工具名称</strong>与<strong>官网链接</strong>；</li>
+  <li><strong>一句话简介</strong>：它在视频创作流程中解决什么问题（30 字以内）；</li>
+  <li><strong>所属分类</strong>：文生视频 / AI 剪辑 / 数字人口播 / 翻译与配音 / 素材生成 / 增强与修复；</li>
+  <li><strong>定价模式</strong>：免费 / 免费+付费 / 付费 / 限时试用；</li>
+  <li><strong>国内访问情况</strong>：可直接访问 / 需要特殊网络环境 / 不确定；</li>
+  <li><strong>主要标签</strong>（如：文生视频、智能字幕、音色克隆）；</li>
+  <li><strong>补充说明</strong>与<strong>你的邮箱</strong>（选填，方便反馈审核结果）。</li>
 </ul>
 
 <h2>审核流程</h2>
-<p>提交后我们会人工体验并核实信息，通过后更新到 <code>data/tools.json</code> 并重新构建上线，通常不需要改任何代码。未通过的话也会在 Issue 里说明原因。</p>
+<p>提交后我们会人工体验并核实信息，通过后更新到 <code>data/tools.json</code> 并重新构建上线，通常不需要改任何代码。未通过的话也会说明原因。</p>
+
+<h2>两个入口</h2>
+<ul>
+  <li>在线提交表单：<a href="{{submitForm}}" target="_blank" rel="noopener">打开填写页</a>（推荐）</li>
+  <li>代码仓库 Issue：<a href="{{issueNew}}" target="_blank" rel="noopener">{{repo}}/issues</a></li>
+</ul>
 
 <blockquote>提示：如果你是该工具的开发者，请额外说明身份，这不影响收录结果，但方便我们核对信息。</blockquote>

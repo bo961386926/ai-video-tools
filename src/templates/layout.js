@@ -61,6 +61,7 @@ ${body}
       <a href="${prefix}index.html">首页</a>
       <a href="${prefix}about.html">关于</a>
       <a href="${prefix}submit.html">提交工具</a>
+      ${site.submitForm ? `<a href="${esc(site.submitForm)}" target="_blank" rel="noopener">在线提交表单</a>` : ''}
     </nav>
     <p class="footer-note">工具信息经人工整理，定价与功能以各官网为准；本站与所列工具无商业关联。© ${year}</p>
   </div>

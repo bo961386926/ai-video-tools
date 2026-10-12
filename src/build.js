@@ -41,6 +41,10 @@ function validate(data) {
     else if (!/^https?:\/\//.test(site.domain)) errors.push('site.domain 必须以 http(s):// 开头');
     else if (/example\.(com|org|cn)/.test(site.domain)) warnings.push('site.domain 仍是示例值，部署前请替换为真实域名');
     if (!site.description) warnings.push('site.description 缺失，首页 meta description 将为空');
+    for (const k of ['repo', 'submitForm']) {
+      if (site[k] && !/^https?:\/\//.test(site[k])) errors.push(`site.${k} 必须以 http(s):// 开头：${site[k]}`);
+    }
+    if (!site.submitForm) warnings.push('site.submitForm 缺失，「提交工具」页将没有在线表单入口');
   }
 
   if (!Array.isArray(categories) || categories.length === 0) errors.push('categories 不能为空');
@@ -183,8 +187,18 @@ function build() {
     { file: 'about.html', title: `关于本站 - ${site.name}`, desc: '本站定位、收录标准、纠错与联系方式。' },
     { file: 'submit.html', title: `提交工具 - ${site.name}`, desc: '收录标准与工具提交流程说明。' },
   ];
+  // 固定页片段支持占位符注入，避免把外部链接硬编码进 HTML：
+  //   {{submitForm}} 在线收集表填写地址 / {{repo}} 代码仓库 / {{issueNew}} 新建 Issue 地址
+  const pageVars = {
+    submitForm: site.submitForm || '',
+    repo: site.repo || '',
+    issueNew: site.repo ? `${site.repo.replace(/\/$/, '')}/issues/new?template=tool-submission.md` : '',
+  };
   for (const sp of staticPages) {
-    const fragment = readFileSync(join(SRC_DIR, 'pages', sp.file), 'utf8');
+    let fragment = readFileSync(join(SRC_DIR, 'pages', sp.file), 'utf8');
+    for (const [k, v] of Object.entries(pageVars)) {
+      fragment = fragment.replaceAll(`{{${k}}}`, esc(v));
+    }
     pages.push({
       file: sp.file,
       depth: 0,

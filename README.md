@@ -59,6 +59,31 @@ npm run admin          # 启动收录工作台 → 浏览器打开 http://127.0.
 
 **预留赞助位**：`site.sponsors` 字段为后期接入预留，当前为空不影响构建。
 
+### 站点级字段（`site`）
+
+| 字段 | 说明 |
+|---|---|
+| `name` / `domain` / `description` | 站名、正式域名（canonical / sitemap / robots / og:image 都取它）、站点简介 |
+| `repo` | 代码仓库地址，用于生成 Issue 入口 |
+| `submitForm` | 「提交工具」的在线收集表填写地址；留空则提交页与页脚不显示表单入口 |
+
+`src/pages/*.html` 是固定页正文片段，构建时支持占位符注入，避免把外部链接硬编码进 HTML：
+
+| 占位符 | 渲染为 |
+|---|---|
+| `{{submitForm}}` | `site.submitForm` |
+| `{{repo}}` | `site.repo` |
+| `{{issueNew}}` | `site.repo` + `/issues/new?template=tool-submission.md` |
+
+## 工具提交入口
+
+「别人向我提交工具」有两条通道，均写入 `site` 配置后由构建自动注入页面：
+
+1. **在线收集表（推荐）**：飞书多维表格表单，公开匿名可填，提交自动汇总成表格便于核对。配置在 `site.submitForm`。
+2. **GitHub Issue**：仓库内 `.github/ISSUE_TEMPLATE/tool-submission.md` 模板，配置在 `site.repo`。
+
+入口出现在三处：`submit.html` 的按钮区、全站页脚「在线提交表单」、首页底部 CTA 的「直接填表单」。
+
 ## 列表页形态
 
 首页与分类页的工具列表采用**横向「工具行」**（图标 + 名称 + 两行简介 + 价格胶囊 + 👍点赞），并在页面上提供：

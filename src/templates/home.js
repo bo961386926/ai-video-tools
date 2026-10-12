@@ -95,7 +95,10 @@ export function renderHome({ site, categories, tools, byCat }) {
       <h2>发现了好用但没收录的 AI 视频工具？</h2>
       <p>告诉我们，核实后会尽快收录。免费收录，不收取任何费用。</p>
     </div>
-    <a class="btn" href="submit.html">提交工具</a>
+    <div class="cta-actions">
+      <a class="btn" href="submit.html">提交工具</a>
+      ${site.submitForm ? `<a class="btn btn-ghost" href="${esc(site.submitForm)}" target="_blank" rel="noopener">直接填表单</a>` : ''}
+    </div>
   </section>
 </div>`;
 }
