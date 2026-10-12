@@ -6,6 +6,7 @@
   "description": "AI 视频创作工具垂直导航站（纯静态、零依赖）",
   "scripts": {
     "build": "node src/build.js",
+    "admin": "node src/admin.js",
     "preview": "node src/build.js && npx --yes serve dist -l 4173"
   }
 }

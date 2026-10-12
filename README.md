@@ -10,6 +10,9 @@ node src/build.js
 
 # 本地预览：直接双击 dist/index.html，或
 npm run preview        # 构建后启动本地服务器（默认 http://localhost:4173）
+
+# 可视化录入工具（推荐，免手改 JSON）
+npm run admin          # 启动收录工作台 → 浏览器打开 http://127.0.0.1:8787
 ```
 
 构建产物在 `dist/` 目录，删除后重新构建不丢任何内容（真正的源在 `data/` 和 `src/`）。
@@ -20,9 +23,12 @@ npm run preview        # 构建后启动本地服务器（默认 http://localhos
 ├── data/tools.json          # ★ 站点全部数据（你日常只需要改这里）
 ├── src/
 │   ├── build.js             # 构建脚本：数据校验 + 页面渲染 + sitemap + 死链检测
+│   ├── admin.js             # ★ 收录工作台后端（本地 127.0.0.1:8787，零依赖 http 服务）
+│   ├── admin.html           # ★ 收录工作台页面（表单 + 工具表格 + 运行日志）
 │   ├── templates/           # 页面模板（改代码才会碰）
 │   ├── pages/               # 关于页 / 提交页正文片段（HTML 片段）
 │   └── assets/              # 样式、脚本、favicon、工具 logo
+│       ├── admin/           # 收录工作台前端逻辑
 │       └── logos/           # 工具 logo 命名为 {slug}.png/svg
 ├── dist/                    # 构建产物（已 gitignore，部署时由平台生成）
 └── .github/ISSUE_TEMPLATE/  # 工具提交的 GitHub Issue 表单
@@ -52,6 +58,28 @@ npm run preview        # 构建后启动本地服务器（默认 http://localhos
 **预留赞助位**：`site.sponsors` 字段为后期接入预留，当前为空不影响构建。
 
 数据校验是 fail-fast 的：必填缺失、slug 重复、分类引用错误、pricing 非法都会构建失败并指出具体字段路径，单人维护也不会把坏数据发布上线。
+
+## 收录工作台（可视化录入）
+
+不想手改 JSON 时，用本地网页表单收录工具：
+
+```bash
+npm run admin        # 等价于 node src/admin.js
+# → 浏览器打开 http://127.0.0.1:8787
+```
+
+**它能做什么**
+
+- **新增 / 编辑 / 删除工具**：表单字段与 `tools.json` schema 一一对应；输入英文名自动生成 slug，中文名需手填英文标识
+- **图标**：「自动抓取」按官网解析 `<link rel=icon>` → `/favicon.ico` 两级策略抓取；也可「上传图标」（png/jpg/webp/svg/ico，≤2MB）；不设则回退首字母头像
+- **保存即重建**：保存后自动跑一次 `src/build.js`，`dist/` 立即刷新，日志区可见构建结果
+- **一键发布**：「保存并推送 GitHub」或列表区「提交并推送」会执行 `git add -A / commit / push`，触发 GitHub Pages 自动部署
+
+**安全约束**
+
+- 服务**仅监听 `127.0.0.1`**，且每次启动生成随机访问令牌（内嵌页面，无需手填）。**切勿用端口转发/反代把它暴露到公网**，否则等于把「改数据 + 推仓库」的权限公开了。
+- 可用环境变量覆盖：`ADMIN_PORT=8888 ADMIN_TOKEN=固定值 node src/admin.js`
+- 校验规则与构建脚本完全一致，非法数据在写入前就会被拦下；**新增**时若 slug 已被占用会直接报错，不会静默覆盖已有工具。
 
 ## SEO 与结构说明
 

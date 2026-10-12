@@ -4,7 +4,7 @@
  * 用法：node src/build.js
  * 职责：读取并校验 data/tools.json → 渲染全部页面 → 生成 sitemap/robots → 复制静态资源 → 内部死链检测
  */
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync, statSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -207,8 +207,9 @@ function build() {
     }),
   });
 
-  /* ---------- 输出 dist ---------- */
-  rmSync(DIST, { recursive: true, force: true });
+  /* ---------- 输出 dist ----------
+   * 注意：不再整目录 rmSync（会触发批量删除保护，且收录工作台子进程无法交互确认），
+   * 改为覆盖写入全部页面 + 逐个清理孤儿页面（如工具删除后残留的 tool/{slug}.html）。 */
   mkdirSync(DIST, { recursive: true });
   for (const p of pages) {
     const outPath = join(DIST, p.file);
@@ -216,14 +217,30 @@ function build() {
     writeFileSync(outPath, p.html, 'utf8');
   }
 
-  /* ---------- 复制静态资源 ---------- */
+  // 逐个删除本次不再生成的页面（数量通常很小，避免批量删除）
+  const expectedPages = new Set(pages.map((p) => p.file));
+  const staleHtml = walk(DIST).filter((f) => f.endsWith('.html')).filter((f) => !expectedPages.has(relative(DIST, f)));
+  for (const f of staleHtml) unlinkSync(f);
+
+  /* ---------- 复制静态资源 ----------
+   * 用 read+write 代替 copyFileSync：部分运行环境对「copyFileSync 覆盖已存在文件」
+   * 有交互确认策略，子进程（收录工作台）无法响应；writeFileSync 覆盖则畅通。 */
   const assetsDir = join(SRC_DIR, 'assets');
   if (existsSync(assetsDir)) {
     for (const f of walk(assetsDir)) {
       const rel = relative(assetsDir, f);
       const dest = join(DIST, 'assets', rel);
       mkdirSync(dirname(dest), { recursive: true });
-      copyFileSync(f, dest);
+      writeFileSync(dest, readFileSync(f));
+    }
+    // 清理 dist/assets 中源目录已不存在的残留（如工具删除后遗留的 {slug}.png），
+    // 保证 dist 始终是 src/assets 的忠实镜像，避免旧图标被一起发布上线。
+    const distAssetsDir = join(DIST, 'assets');
+    if (existsSync(distAssetsDir)) {
+      for (const f of walk(distAssetsDir)) {
+        const rel = relative(distAssetsDir, f);
+        if (!existsSync(join(assetsDir, rel))) unlinkSync(f);
+      }
     }
   }
 

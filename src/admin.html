@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>收录工作台 · AI视频工具导航</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+<style>
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --text: #1c2333; --text-secondary: #5a6478;
+  --border: #e4e7ee; --primary: #2f5cff; --primary-strong: #1f47d1; --primary-soft: #eef2ff;
+  --ok: #15803d; --err: #dc2626; --warn: #b45309;
+  --radius: 12px; --shadow: 0 1px 2px rgba(16,24,40,.05), 0 4px 12px rgba(16,24,40,.06);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font); font-size: 15px; line-height: 1.6; color: var(--text); background: var(--bg); }
+h2 { font-size: 17px; margin: 0 0 14px; }
+.topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 10; }
+.topbar .wrap { display: flex; align-items: center; gap: 10px; }
+.topbar strong { font-size: 16px; }
+.muted { color: var(--text-secondary); font-size: 13px; }
+.spacer { flex: 1; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+main { display: grid; grid-template-columns: minmax(400px, 470px) 1fr; gap: 16px; padding: 20px; max-width: 1240px; margin: 0 auto; align-items: start; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }
+.log-card { grid-column: 1 / -1; }
+label { display: block; font-size: 13px; font-weight: 600; margin: 12px 0 5px; }
+label:first-of-type { margin-top: 0; }
+input[type=text], input[type=url], select, textarea {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+  font: inherit; font-size: 14px; color: var(--text); background: #fff;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary-soft); border-color: var(--primary); }
+textarea { min-height: 88px; resize: vertical; }
+.hint { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.check { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 14px; }
+.check input { width: 16px; height: 16px; accent-color: var(--primary); }
+.logo-row { display: flex; gap: 12px; align-items: center; margin-top: 6px; padding: 12px; border: 1px dashed var(--border); border-radius: 10px; background: #fafbfd; }
+.logo-preview { width: 48px; height: 48px; border-radius: 10px; border: 1px solid var(--border); background: #fff; object-fit: contain; flex: none; }
+.logo-preview.empty { display: flex; align-items: center; justify-content: center; font-size: 20px; color: #b6bfd0; }
+.logo-meta { flex: 1; min-width: 0; }
+.logo-path { font-family: var(--mono); font-size: 12px; color: var(--text-secondary); word-break: break-all; }
+.logo-btns { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+button {
+  padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border); background: #fff;
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--text); cursor: pointer;
+}
+button:hover { border-color: #c8d0e0; background: #f8fafc; }
+button.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+button.primary:hover { background: var(--primary-strong); }
+button.ghost { background: transparent; }
+button.danger { color: var(--err); }
+button.danger:hover { border-color: var(--err); background: #fef2f2; }
+button:disabled { opacity: .55; cursor: wait; }
+.form-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.form-msg { margin-top: 12px; font-size: 13px; padding: 10px 12px; border-radius: 8px; display: none; }
+.form-msg.show { display: block; }
+.form-msg.err { background: #fef2f2; color: var(--err); border: 1px solid #fecaca; }
+.form-msg.ok { background: #f0fdf4; color: var(--ok); border: 1px solid #bbf7d0; }
+.list-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.list-head h2 { margin: 0; }
+.list-head .spacer { flex: 1; }
+.list-head input[type=text] { width: 200px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th { text-align: left; font-size: 12px; color: var(--text-secondary); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 9px 10px; border-bottom: 1px solid #f0f2f6; vertical-align: middle; }
+tr:hover td { background: #fafbfd; }
+.cell-name { display: flex; align-items: center; gap: 9px; min-width: 170px; }
+.rowicon { width: 26px; height: 26px; border-radius: 7px; flex: none; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border); background: #fff; }
+.rowicon img { width: 100%; height: 100%; object-fit: contain; }
+.cell-name .nm { font-weight: 600; }
+.cell-name .sl { font-family: var(--mono); font-size: 11.5px; color: var(--text-secondary); }
+.badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.b-free { background: #f0fdf4; color: #15803d; }
+.b-freemium { background: #eef2ff; color: #3730a3; }
+.b-paid { background: #fff7ed; color: #c2410c; }
+.b-trial { background: #f5f3ff; color: #6d28d9; }
+.b-direct { background: #f0fdf4; color: #15803d; }
+.b-proxy { background: #fef2f2; color: #b91c1c; }
+.b-unknown { background: #f1f5f9; color: #475569; }
+.star { color: #f59e0b; font-size: 15px; }
+.log { height: 230px; overflow: auto; background: #fafbfd; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-family: var(--mono); font-size: 12.5px; line-height: 1.75; white-space: pre-wrap; word-break: break-all; }
+.log .l-info { color: var(--text-secondary); }
+.log .l-ok { color: var(--ok); }
+.log .l-err { color: var(--err); }
+.log .l-warn { color: var(--warn); }
+.log-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.log-head h2 { margin: 0; }
+@media (max-width: 980px) {
+  main { grid-template-columns: 1fr; }
+  .log-card { grid-column: auto; }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <strong>🎬 收录工作台</strong>
+    <span class="muted">AI视频工具导航 · 仅限本机 127.0.0.1 使用，切勿暴露到公网</span>
+    <span class="spacer"></span>
+    <span id="stats" class="muted">加载中…</span>
+  </div>
+</header>
+
+<main>
+  <!-- 工具表单 -->
+  <section class="card">
+    <h2 id="formTitle">新增工具</h2>
+    <label for="name">工具名称 <span style="color:var(--err)">*</span></label>
+    <input type="text" id="name" placeholder="如：Runway">
+
+    <label for="slug">slug 标识 <span style="color:var(--err)">*</span></label>
+    <input type="text" id="slug" placeholder="如：runway">
+    <div class="hint" id="slugHint">仅小写字母/数字/连字符，全站唯一，作为详情页地址 /tool/{slug}.html；编辑时不可修改</div>
+
+    <div class="row2">
+      <div>
+        <label for="category">所属分类 <span style="color:var(--err)">*</span></label>
+        <select id="category"></select>
+      </div>
+      <div>
+        <label for="pricing">定价 <span style="color:var(--err)">*</span></label>
+        <select id="pricing">
+          <option value="freemium">免费增值（freemium）</option>
+          <option value="paid">付费（paid）</option>
+          <option value="free">免费（free）</option>
+          <option value="trial">试用（trial）</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="tagline">一句话简介 <span style="color:var(--err)">*</span></label>
+    <input type="text" id="tagline" maxlength="60" placeholder="≤40 字，如：专业级 AI 视频生成与编辑平台">
+
+    <label for="website">官网地址 <span style="color:var(--err)">*</span></label>
+    <input type="url" id="website" placeholder="https://">
+
+    <div class="row2">
+      <div>
+        <label for="access">国内访问</label>
+        <select id="access">
+          <option value="direct">可直连</option>
+          <option value="proxy">需要代理</option>
+          <option value="unknown">未知</option>
+        </select>
+      </div>
+      <div>
+        <label for="tags">标签（逗号分隔）</label>
+        <input type="text" id="tags" placeholder="文生视频, 图生视频">
+      </div>
+    </div>
+
+    <label for="description">详细介绍</label>
+    <textarea id="description" placeholder="工具的核心能力、适用场景、代表模型/版本等"></textarea>
+
+    <div class="check">
+      <input type="checkbox" id="featured">
+      <label for="featured" style="margin:0;font-weight:500">首页推荐位（显示在首页精选区）</label>
+    </div>
+
+    <label>工具图标</label>
+    <div class="logo-row">
+      <img id="logoPreview" class="logo-preview empty" alt="" src="">
+      <div class="logo-meta">
+        <div class="logo-path" id="logoPath">未设置（将显示首字母头像）</div>
+        <div class="logo-btns">
+          <button type="button" id="btnFetchLogo">自动抓取</button>
+          <button type="button" id="btnUploadLogo">上传图标</button>
+          <button type="button" id="btnClearLogo" class="ghost">清除</button>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="logo">
+    <input type="file" id="logoFile" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/x-icon" hidden>
+
+    <div class="form-actions">
+      <button type="button" id="btnSave" class="primary">保存并重建站点</button>
+      <button type="button" id="btnSavePush" class="primary">保存并推送 GitHub</button>
+      <button type="button" id="btnReset" class="ghost">清空表单</button>
+    </div>
+    <div class="form-msg" id="formMsg"></div>
+  </section>
+
+  <!-- 工具列表 -->
+  <section class="card">
+    <div class="list-head">
+      <h2>工具列表 <span id="toolCount" class="muted"></span></h2>
+      <span class="spacer"></span>
+      <input type="text" id="search" placeholder="搜索名称 / slug / 标签">
+      <button type="button" id="btnBuild">仅重建站点</button>
+      <button type="button" id="btnPush">提交并推送</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>工具</th><th>分类</th><th>定价</th><th>访问</th><th>图标</th><th>更新</th><th>推荐</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 日志 -->
+  <section class="card log-card">
+    <div class="log-head">
+      <h2>运行日志</h2>
+      <span class="spacer"></span>
+      <button type="button" id="btnClearLog" class="ghost">清空日志</button>
+    </div>
+    <div class="log" id="log"></div>
+  </section>
+</main>
+
+<script src="/assets/admin/admin-page.js"></script>
+</body>
+</html>
