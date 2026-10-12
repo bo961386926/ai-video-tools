@@ -146,7 +146,7 @@ cp data/submissions.example.json data/submissions.local.json
 
 - 每页独立 title / description / canonical，`lang="zh-CN"`，语义化标签
 - 详情页带 `SoftwareApplication`、分类页带 `ItemList` 结构化数据（JSON-LD）
-- 自动生成 `sitemap.xml`（含 lastmod）与 `robots.txt`（URL 取 `site.domain`，**部署前务必改成真实域名**）
+- 自动生成 `sitemap.xml`（含 lastmod）与 `robots.txt`（URL 取 `site.domain`，当前为 `https://aitools.coderx.me`）
 - 全部链接为相对路径，可直接部署到 GitHub Pages 项目子路径或自定义域名
 - 构建时自动做全站死链检测，有死链则构建失败
 
@@ -160,6 +160,13 @@ cp data/submissions.example.json data/submissions.local.json
 - 当前 81 款中已有 60+ 款本地图标，剩余海外站点图标可在任意网络通畅的机器上跑一次脚本补全
 
 ## 部署
+
+### 线上地址（当前）
+
+- 主站：<https://aitools.coderx.me/> —— 全站 canonical、`sitemap.xml`、`robots.txt`、`og:image` 都指向它
+- GitHub Pages 镜像：<https://bo961386926.github.io/ai-video-tools/> —— 同样可访问，但每页 canonical 指向主站，不会被搜索引擎判为重复内容
+- 发布方式：脚本化发布（构建 → 上传新版本 → 原子切换 → 冒烟自测，只保留最近 5 个版本），脚本与服务器信息放在已 gitignore 的 `.workbuddy-ai/` 下，不入库
+- TLS 证书由阿里云签发，有效期至 **2027-01-09**；到期前重新签发并下载后重跑证书脚本即可（该脚本也支持 `CERTBOT_EMAIL=邮箱` 的 Let's Encrypt 自动续期模式）
 
 ### Vercel（推荐，配置最少）
 1. 仓库推送到 GitHub 后在 Vercel 导入；
