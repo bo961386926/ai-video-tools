@@ -1,11 +1,13 @@
 /** 公共页面骨架：head / 头部导航 / 页脚 */
 import { esc } from './common.js';
 
-export function renderLayout({ site, title, description, path, depth, navKey, body }) {
+export function renderLayout({ site, title, description, path, depth, navKey, body, ogImage: ogImagePath }) {
   const prefix = depth === 0 ? '' : '../'.repeat(depth);
   const domain = (site.domain || '').replace(/\/$/, '');
   const canonical = domain ? `${domain}${path}` : path;
-  const ogImage = domain ? `${domain}/assets/og-default.png` : `${prefix}assets/og-default.png`;
+  // 分享卡：优先用调用方指定的站点根相对路径（如 /assets/og/tool/pika.png），缺省回落到全站默认卡
+  const ogPath = ogImagePath || '/assets/og-default.png';
+  const ogImage = domain ? `${domain}${ogPath}` : `${prefix}${ogPath.replace(/^\/+/, '')}`;
 
   const navItems = [
     { key: 'home', href: `${prefix}index.html`, label: '首页' },
@@ -18,6 +20,26 @@ export function renderLayout({ site, title, description, path, depth, navKey, bo
 
   const year = new Date().getFullYear();
 
+  // 访问计数信标：只上报「真的把页面渲染出来」的客户端（爬虫不执行 JS，天然被排除）
+  // - 主站与 GitHub Pages 镜像共用同一段代码，靠 s=main|mirror 区分来源
+  // - 本地预览（localhost / 127.0.0.1 / file:）不上报，避免污染统计
+  // - 不使用 cookie、不采集个人信息，仅记录页面路径与来源页
+  let beacon = '';
+  if (domain) {
+    let host = '';
+    try {
+      host = new URL(domain).host;
+    } catch {
+      host = '';
+    }
+    beacon = `<script>
+(function(){try{var h=location.host;if(!h||h==='localhost'||h==='127.0.0.1'||location.protocol==='file:')return;
+var s=(h===${JSON.stringify(host)})?'main':'mirror';var i=new Image(1,1);i.alt='';
+i.src=${JSON.stringify(domain + '/assets/px.gif')}+'?s='+s+'&p='+encodeURIComponent(location.pathname)+'&r='+encodeURIComponent(document.referrer||'')+'&_='+Math.random().toString(36).slice(2);}catch(e){}})();
+</script>
+`;
+  }
+
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -27,10 +49,16 @@ export function renderLayout({ site, title, description, path, depth, navKey, bo
 <meta name="description" content="${esc(description || '')}">
 <link rel="canonical" href="${esc(canonical)}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="${esc(site.name || 'AI 视频工具导航')}">
+<meta property="og:url" content="${esc(canonical)}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description || '')}">
 <meta property="og:image" content="${esc(ogImage)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(title)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${esc(ogImage)}">
 <link rel="icon" type="image/svg+xml" href="${prefix}assets/favicon.svg">
 <link rel="stylesheet" href="${prefix}assets/css/style.css">
 </head>
@@ -67,6 +95,6 @@ ${body}
   </div>
 </footer>
 <script src="${prefix}assets/js/main.js" defer></script>
-</body>
+${beacon}</body>
 </html>`;
 }

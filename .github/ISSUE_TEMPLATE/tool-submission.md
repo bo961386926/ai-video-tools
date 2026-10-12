@@ -70,4 +70,4 @@ body:
     id: extra
     attributes:
       label: 补充说明（选填）
-      description: 例如开发者身份、特色功能
+      description: 例如特色功能、使用场景

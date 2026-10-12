@@ -21,6 +21,8 @@ npm run admin          # 启动收录工作台 → 浏览器打开 http://127.0.
 
 ```
 ├── data/tools.json          # ★ 站点全部数据（你日常只需要改这里）
+├── tools/
+│   └── gen-og-cards.mjs     # 分享卡（og:image）生成器：本机 Chrome 截图 → src/assets/og/
 ├── src/
 │   ├── build.js             # 构建脚本：数据校验 + 页面渲染 + sitemap + 死链检测
 │   ├── admin.js             # ★ 收录工作台后端（本地 127.0.0.1:8787，零依赖 http 服务）
@@ -29,7 +31,9 @@ npm run admin          # 启动收录工作台 → 浏览器打开 http://127.0.
 │   ├── pages/               # 关于页 / 提交页正文片段（HTML 片段）
 │   └── assets/              # 样式、脚本、favicon、工具 logo
 │       ├── admin/           # 收录工作台前端逻辑
-│       └── logos/           # 工具 logo 命名为 {slug}.png/svg
+│       ├── logos/           # 工具 logo 命名为 {slug}.png/svg
+│       ├── og/              # 分享卡：tool/{slug}.png、category/{slug}.png、home/about/submit.png
+│       └── px.gif           # 1×1 访问计数信标（透明 GIF，42 字节）
 ├── dist/                    # 构建产物（已 gitignore，部署时由平台生成）
 └── .github/ISSUE_TEMPLATE/  # 工具提交的 GitHub Issue 表单
 ```
@@ -142,9 +146,41 @@ cp data/submissions.example.json data/submissions.local.json
 
 前置依赖：本机装有 `lark-cli` 且已完成飞书登录授权（工作台靠它读写多维表格）。该配置文件含 `base_token`，已在 `.gitignore` 中忽略，不会被推上仓库。
 
+## 分享卡（og:image）
+
+每页都有独立的分享卡：工具页、分类页、首页、关于、提交页各一张，1200×630，分享到微信 / 微博 / X / 飞书时显示工具名 + 简介 + 分类，而不是一张通用图。
+
+- 卡片是**构建期预生成并入库**的静态 PNG，放在 `src/assets/og/`；构建脚本只校验存在性（缺图直接构建失败并提示），因此**构建本身不需要 Chrome**
+- 新增工具后重新生成：
+
+  ```bash
+  node tools/gen-og-cards.mjs              # 全量生成 90 张
+  node tools/gen-og-cards.mjs --only=pika  # 只生成一张（调试用）
+  ```
+
+- 生成依赖本机装有 Google Chrome（脚本走 `--headless=old` 无头截图）。在没有 Chrome 的机器上也可以正常构建与部署，只是不能新增/更新卡片；卡片入库后 CI 与服务器都不需要 Chrome
+- `og:image` / `og:url` / `og:image:width` / `og:image:height` / `twitter:image` 均由模板按 `site.domain` 生成，换域名无需改代码
+
+## 访问统计（自托管，不引第三方脚本）
+
+只想知道「有多少人访问、看了哪些页」，用站点自己的 1×1 信标 + 服务器日志，不接入任何第三方统计：
+
+- **信标**：每个页面在 `</body>` 前注入一段极小的 JS，向 `https://<site.domain>/assets/px.gif` 发一次 1×1 请求，带上页面路径 `p`、来源页 `r`、以及 `s=main|mirror`（主站 / GitHub Pages 镜像）
+- **为什么准**：不执行 JS 的爬虫、`curl`、漏洞扫描器天然不产生信标请求，所以真人 PV 不会被爬虫灌水；本地预览（`localhost` / `127.0.0.1` / `file:`）不上报
+- **隐私**：不使用 cookie、不采集个人信息、不跨站跟踪，只记录「哪个页面被打开过」与来源页；与普通 Web 服务器访问日志同级别
+- **日志留存**：服务器上 `pull-edge-log.sh` 每 15 分钟把边缘容器里的 Nginx 访问日志增量落盘到宿主机（容器重建也不丢）
+- **出报告**：
+
+  ```bash
+  node .workbuddy-ai/aitools/stats.mjs        # 服务器信息与脚本在已 gitignore 的目录内
+  ```
+
+  产出三样：终端摘要、`logs/report.html`（带条形图，浏览器打开）、`logs/report-<日期>.md` 快照。报告同时给出两个口径 —— 「真人浏览」（信标）与「全部流量」（含爬虫/搜索引擎抓取，用于观察收录进度与安全扫描）。
+
 ## SEO 与结构说明
 
 - 每页独立 title / description / canonical，`lang="zh-CN"`，语义化标签
+- 每页独立 `og:image` 分享卡 + `og:url` / `og:image:width|height` / `twitter:image`（见上文「分享卡」）
 - 详情页带 `SoftwareApplication`、分类页带 `ItemList` 结构化数据（JSON-LD）
 - 自动生成 `sitemap.xml`（含 lastmod）与 `robots.txt`（URL 取 `site.domain`，当前为 `https://aitools.coderx.me`）
 - 全部链接为相对路径，可直接部署到 GitHub Pages 项目子路径或自定义域名

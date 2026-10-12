@@ -132,10 +132,14 @@ function build() {
   /** @type {{file:string, depth:number, html:string}[]} */
   const pages = [];
 
+  /** 分享卡路径（站点根相对）——由 tools/gen-og-cards.mjs 生成，构建时校验存在性 */
+  const ogFor = (rel) => `/assets/og/${rel}.png`;
+
   // 首页
   pages.push({
     file: 'index.html',
     depth: 0,
+    og: ogFor('home'),
     html: renderLayout({
       site,
       title: `${site.name} - AI 视频创作工具导航｜文生视频 · AI剪辑 · 数字人`,
@@ -143,6 +147,7 @@ function build() {
       path: '/index.html',
       depth: 0,
       navKey: 'home',
+      ogImage: ogFor('home'),
       body: renderHome({ site, categories, tools: sortedTools, byCat }),
     }),
   });
@@ -153,12 +158,14 @@ function build() {
     pages.push({
       file: `category/${cat.slug}.html`,
       depth: 1,
+      og: ogFor(`category/${cat.slug}`),
       html: renderLayout({
         site,
         title: `${cat.name}工具（${list.length} 款）- ${site.name}`,
         description: cat.description,
         path: `/category/${cat.slug}.html`,
         depth: 1,
+        ogImage: ogFor(`category/${cat.slug}`),
         body: renderCategory({ site, categories, category: cat, list, byCat }),
       }),
     });
@@ -171,12 +178,14 @@ function build() {
     pages.push({
       file: `tool/${t.slug}.html`,
       depth: 1,
+      og: ogFor(`tool/${t.slug}`),
       html: renderLayout({
         site,
         title: `${t.name} - ${t.tagline} - ${site.name}`,
         description: t.description ? t.description.slice(0, 120) : t.tagline,
         path: `/tool/${t.slug}.html`,
         depth: 1,
+        ogImage: ogFor(`tool/${t.slug}`),
         body: renderTool({ site, tool: t, category: cat, related }),
       }),
     });
@@ -202,12 +211,14 @@ function build() {
     pages.push({
       file: sp.file,
       depth: 0,
+      og: ogFor(sp.file.replace(/\.html$/, '')),
       html: renderLayout({
         site,
         title: sp.title,
         description: sp.desc,
         path: `/${sp.file}`,
         depth: 0,
+        ogImage: ogFor(sp.file.replace(/\.html$/, '')),
         body: renderStaticPage({ fragment }),
       }),
     });
@@ -327,9 +338,23 @@ function build() {
     process.exit(1);
   }
 
+  /* ---------- 分享卡（og:image）存在性检测 ----------
+   * 卡片由 tools/gen-og-cards.mjs 用本机 Chrome 预生成并入库；
+   * 这里只做存在性校验：页面引用了不存在的卡片 = 分享出去是一张破图，属于发布级缺陷。 */
+  const ogFiles = [...new Set(pages.map((p) => p.og).filter(Boolean))];
+  const missingOg = ogFiles.filter((rel) => !existsSync(join(SRC_DIR, rel)));
+  if (missingOg.length) {
+    console.error(`✗ 分享卡缺失（${missingOg.length}/${ogFiles.length} 张）：`);
+    missingOg.slice(0, 10).forEach((rel) => console.error(`  - ${rel}`));
+    if (missingOg.length > 10) console.error(`  - …另有 ${missingOg.length - 10} 张未列出`);
+    console.error('  修复：运行 node tools/gen-og-cards.mjs 重新生成分享卡后重试');
+    process.exit(1);
+  }
+
   /* ---------- 摘要 ---------- */
   console.log('✓ 构建完成');
   console.log(`  页面总数：${pages.length}（首页 1 + 分类 ${categories.length} + 工具 ${tools.length} + 固定页 3）`);
+  console.log(`  分享卡：${ogFiles.length} 张 og:image 全部就位`);
   console.log(`  分类：${categories.map((c) => c.name).join(' / ')}`);
   console.log(`  输出目录：${DIST}`);
 }
