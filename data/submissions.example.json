@@ -1,0 +1,9 @@
+{
+  "_说明": "复制本文件为 data/submissions.local.json 后填写真实值。该文件已 gitignore，不会入库。",
+  "baseToken": "多维表格 base_token（形如 Ab1Cd2Ef3Gh4Ij5Kl6Mn7Op8Qr）",
+  "tableId": "数据表 table_id（形如 tblxxxxxxxxxxxx）",
+  "statusField": "收录状态",
+  "tableUrl": "https://xxx.feishu.cn/base/<base_token>",
+  "as": "user",
+  "larkCli": "可选：lark-cli 可执行文件绝对路径；留空自动探测"
+}

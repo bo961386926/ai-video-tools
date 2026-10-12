@@ -5,7 +5,7 @@
   var TOKEN = '__ADMIN_TOKEN__';
   var $ = function (id) { return document.getElementById(id); };
 
-  var state = { site: {}, categories: [], tools: [], editing: null, slugTouched: false };
+  var state = { site: {}, categories: [], tools: [], editing: null, slugTouched: false, submissions: [], fromSubmission: null };
 
   var AVATAR_COLORS = ['#EEF2FF', '#FEF3C7', '#ECFDF5', '#FDF2F8', '#EFF6FF', '#F0FDF4', '#FFF7ED', '#F5F3FF', '#F0F9FF'];
   var PRICING_LABEL = { free: '免费', freemium: '免费增值', paid: '付费', trial: '试用' };
@@ -219,17 +219,23 @@
     }
   }
 
-  function fillForm(t) {
-    state.editing = t ? t.slug : null;
-    state.slugTouched = false;
+  function fillForm(t, asNew) {
+    var isEdit = !!t && !asNew;
+    state.editing = isEdit ? t.slug : null;
+    state.slugTouched = !!t;
+    state.fromSubmission = null;
     clearFormMsg();
-    $('formTitle').textContent = t ? '编辑工具：' + t.name : '新增工具';
+    $('formTitle').textContent = isEdit
+      ? '编辑工具：' + t.name
+      : t
+        ? '新增工具（来自提交，核对后保存）'
+        : '新增工具';
     $('name').value = t ? t.name : '';
-    $('slug').value = t ? t.slug : '';
-    $('slug').readOnly = !!t;
-    $('slugHint').textContent = t
+    $('slug').value = t ? (t.slug || '') : '';
+    $('slug').readOnly = isEdit;
+    $('slugHint').textContent = isEdit
       ? '编辑时不可修改 slug（详情页地址主键）'
-      : '仅小写字母/数字/连字符，全站唯一；英文名会自动生成';
+      : '仅小写字母/数字/连字符，全站唯一；中文名无法自动生成时请手填英文标识';
     renderCategoryOptions();
     if (t && state.categories.some(function (c) { return c.slug === t.category; })) $('category').value = t.category;
     $('tagline').value = t ? t.tagline : '';
@@ -290,6 +296,12 @@
       }
       (r.warnings || []).forEach(function (w) { log('⚠ ' + w, 'warn'); });
       log('✓ 已' + (r.action === 'created' ? '新增' : '更新') + '：' + r.tool.name + '（' + r.tool.slug + '）', 'ok');
+      if (r.action === 'created' && state.fromSubmission) {
+        var src = state.submissions.find(function (x) { return x.recordId === state.fromSubmission.recordId; });
+        state.fromSubmission = null;
+        if (src && src.status === '待审核') markSubmission(src, '已收录');
+        else if (src) log('该提交在收集表里已是「' + src.status + '」，不再改动', 'info');
+      }
       if (r.build && r.build.ok) {
         log('✓ 站点已重建（dist/）', 'ok');
       } else if (r.build) {
@@ -318,6 +330,196 @@
       else if (r.build) log('✗ 重建失败：\n' + r.build.output, 'err');
       if (state.editing === t.slug) fillForm(null);
       reload();
+    });
+  }
+
+  /* ---------------- 待审核提交（飞书收集表） ----------------
+   * 只读拉取别人提交的工具，核对后「填入表单」；收录/忽略只回写收集表的状态字段，
+   * 不动站点数据。收集表没配置或读不到时，面板给明确提示，不阻塞其它功能。
+   */
+
+  var STATUS_BADGE = { '待审核': 'b-wait', '已收录': 'b-done', '已忽略': 'b-skip' };
+
+  function pendingCount() {
+    return state.submissions.filter(function (s) { return s.status === '待审核'; }).length;
+  }
+
+  function setPendingCount(n) {
+    var el = $('pendingCount');
+    el.textContent = String(n);
+    el.className = 'pending-count' + (n ? '' : ' zero');
+  }
+
+  function renderPendingNotice(text) {
+    var body = $('pendingBody');
+    body.textContent = '';
+    body.className = 'pending-empty';
+    body.textContent = text;
+  }
+
+  function loadSubmissions(silent) {
+    var btn = $('btnRefreshSubs');
+    btn.disabled = true;
+    if (!silent) log('正在读取提交收集表 …', 'info');
+    return api('/api/submissions').then(function (r) {
+      btn.disabled = false;
+      if (!r.ok) {
+        state.submissions = [];
+        setPendingCount(0);
+        if (r.configured === false) {
+          renderPendingNotice('尚未配置收集表：请把 data/submissions.example.json 复制为 data/submissions.local.json，填好 baseToken / tableId 后重启工作台。');
+          log('⚠ 提交收集表未配置：' + (r.error || ''), 'warn');
+        } else {
+          renderPendingNotice('读取失败：' + (r.error || '未知错误'));
+          log('✗ 读取提交失败：' + (r.error || '未知错误'), 'err');
+        }
+        return;
+      }
+      state.submissions = r.items || [];
+      var link = $('openTable');
+      if (r.tableUrl) {
+        link.href = r.tableUrl;
+        link.style.display = '';
+      }
+      renderPending();
+      log('✓ 提交收集表：共 ' + state.submissions.length + ' 条，待审核 ' + pendingCount() + ' 条', 'ok');
+      if (r.hasMore) log('⚠ 收集表记录超过一次拉取上限，当前只显示最近 200 条；请先在收集表里处理掉旧记录', 'warn');
+    });
+  }
+
+  function metaText(text) {
+    var sp = document.createElement('span');
+    sp.textContent = text;
+    return sp;
+  }
+
+  function mkBtn(text, cls, onClick) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = text;
+    if (cls) b.className = cls;
+    b.addEventListener('click', onClick);
+    return b;
+  }
+
+  function pendingItem(s) {
+    var d = s.draft || {};
+    var cat = state.categories.find(function (c) { return c.slug === d.category; });
+    var item = document.createElement('div');
+    item.className = 'pending-item' + (s.status === '待审核' ? '' : ' done');
+
+    var top = document.createElement('div');
+    top.className = 'pi-top';
+    var nm = document.createElement('span');
+    nm.className = 'pi-name';
+    nm.textContent = d.name || '（提交未填工具名称）';
+    top.appendChild(nm);
+    var sl = document.createElement('span');
+    sl.className = 'pi-slug';
+    sl.textContent = d.slug ? 'slug: ' + d.slug : 'slug: 待手填';
+    top.appendChild(sl);
+    var badge = document.createElement('span');
+    badge.className = 'badge ' + (STATUS_BADGE[s.status] || 'b-unknown');
+    badge.textContent = s.status;
+    top.appendChild(badge);
+    if (s.slugTaken) {
+      var warn = document.createElement('span');
+      warn.className = 'warn-inline';
+      warn.textContent = '⚠ slug 已被收录工具占用，填入表单后请改成新的英文标识';
+      top.appendChild(warn);
+    }
+    item.appendChild(top);
+
+    var tagline = document.createElement('div');
+    tagline.className = 'pi-tagline';
+    tagline.textContent = d.tagline || '（未填一句话简介）';
+    item.appendChild(tagline);
+
+    var meta = document.createElement('div');
+    meta.className = 'pi-meta';
+    if (s.categoryMapped && cat) {
+      meta.appendChild(metaText('分类：' + cat.name));
+    } else {
+      meta.appendChild(metaText('分类：⚠ 未识别' + (s.raw && s.raw.category ? '（原值：' + s.raw.category + '）' : '（表单未选）') + '，填入表单后请手选'));
+    }
+    meta.appendChild(metaText('定价：' + (PRICING_LABEL[d.pricing] || d.pricing || '未知')));
+    meta.appendChild(metaText('国内访问：' + (ACCESS_LABEL[d.access] || d.access || '未知')));
+    if (d.tags && d.tags.length) meta.appendChild(metaText('标签：' + d.tags.join('、')));
+    if (s.email) meta.appendChild(metaText('提交者：' + s.email));
+    if (s.submittedAt) meta.appendChild(metaText('提交时间：' + s.submittedAt));
+    if (d.website) {
+      var link = document.createElement('a');
+      link.href = d.website;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = d.website;
+      meta.appendChild(link);
+    } else {
+      meta.appendChild(metaText('⚠ 未填官网链接'));
+    }
+    item.appendChild(meta);
+
+    var ops = document.createElement('div');
+    ops.className = 'pi-ops';
+    if (s.status === '待审核') {
+      ops.appendChild(mkBtn('填入表单', 'primary', function () { adoptSubmission(s); }));
+      ops.appendChild(mkBtn('标记已收录', '', function () { markSubmission(s, '已收录'); }));
+      ops.appendChild(mkBtn('标记已忽略', 'ghost', function () { markSubmission(s, '已忽略'); }));
+    } else {
+      ops.appendChild(mkBtn('填入表单', '', function () { adoptSubmission(s); }));
+      ops.appendChild(mkBtn('恢复待审核', 'ghost', function () { markSubmission(s, '待审核'); }));
+    }
+    item.appendChild(ops);
+    return item;
+  }
+
+  function renderPending() {
+    var body = $('pendingBody');
+    var showDone = $('showDone').checked;
+    var list = state.submissions.filter(function (s) { return showDone || s.status === '待审核'; });
+    setPendingCount(pendingCount());
+    if (!state.submissions.length) {
+      renderPendingNotice('暂无提交。别人通过在线收集表提交后会出现在这里。');
+      return;
+    }
+    if (!list.length) {
+      renderPendingNotice('没有待审核的提交（全部 ' + state.submissions.length + ' 条已处理，勾选右上角「显示已处理」可查看）。');
+      return;
+    }
+    body.textContent = '';
+    body.className = 'pending-list';
+    list.forEach(function (s) { body.appendChild(pendingItem(s)); });
+  }
+
+  function adoptSubmission(s) {
+    fillForm(s.draft, true);
+    state.fromSubmission = { recordId: s.recordId, slug: (s.draft && s.draft.slug) || '' };
+    if (s.slugTaken) {
+      formMsg('slug「' + s.draft.slug + '」已被现有工具占用，请先改成新的英文标识再保存', 'err');
+    } else if (!s.draft.slug) {
+      formMsg('中文名无法自动生成 slug，请手填英文标识再保存', 'err');
+    } else {
+      formMsg('已填入表单，核对后保存；保存成功会自动在收集表标记「已收录」', 'ok');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    log('已载入提交：' + (s.draft.name || s.recordId) + '（核对后点「保存并重建站点」）', 'info');
+  }
+
+  function markSubmission(s, status) {
+    if (!s.recordId) {
+      log('✗ 该提交缺少 recordId，无法回写收集表状态', 'err');
+      return Promise.resolve(false);
+    }
+    log('正在把「' + (s.draft.name || s.recordId) + '」标记为「' + status + '」 …', 'info');
+    return api('/api/submissions/status', { recordId: s.recordId, status: status }).then(function (r) {
+      if (!r.ok) {
+        log('✗ 状态回写失败：' + (r.error || '未知错误'), 'err');
+        return false;
+      }
+      s.status = status;
+      renderPending();
+      log('✓ 已在收集表标记「' + status + '」：' + (s.draft.name || s.recordId), 'ok');
+      return true;
     });
   }
 
@@ -399,9 +601,12 @@
     this.value = '';
   });
   $('btnClearLog').addEventListener('click', function () { $('log').textContent = ''; });
+  $('btnRefreshSubs').addEventListener('click', function () { loadSubmissions(); });
+  $('showDone').addEventListener('change', renderPending);
 
   fillForm(null);
   reload().then(function () {
     log('收录工作台就绪：共 ' + state.tools.length + ' 款工具。新增/编辑后会自动重建 dist/，推送后 GitHub Pages 自动部署。', 'ok');
   });
+  loadSubmissions(true);
 })();

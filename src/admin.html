@@ -91,6 +91,30 @@ tr:hover td { background: #fafbfd; }
 .log .l-warn { color: var(--warn); }
 .log-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 .log-head h2 { margin: 0; }
+
+/* ---------- 待审核提交 ---------- */
+.pending-card { grid-column: 1 / -1; }
+.pending-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.pending-head h2 { margin: 0; }
+.pending-count { background: var(--primary-soft); color: var(--primary-strong); border-radius: 999px; padding: 1px 9px; font-size: 12px; font-weight: 700; vertical-align: 2px; }
+.pending-count.zero { background: #f1f5f9; color: var(--text-secondary); }
+.pending-empty { color: var(--text-secondary); font-size: 13.5px; }
+.pending-list { display: grid; gap: 10px; }
+.pending-item { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: #fafbfd; display: grid; gap: 7px; }
+.pending-item.done { opacity: .62; }
+.pi-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pi-name { font-weight: 700; font-size: 15px; }
+.pi-slug { font-family: var(--mono); font-size: 11.5px; color: var(--text-secondary); }
+.pi-tagline { font-size: 13.5px; }
+.pi-meta { font-size: 12.5px; color: var(--text-secondary); display: flex; gap: 16px; flex-wrap: wrap; }
+.pi-meta a { color: var(--primary); word-break: break-all; }
+.pi-ops { display: flex; gap: 8px; flex-wrap: wrap; }
+.b-wait { background: #fffbeb; color: #b45309; }
+.b-done { background: #f0fdf4; color: #15803d; }
+.b-skip { background: #f1f5f9; color: #475569; }
+.warn-inline { color: var(--warn); font-size: 12.5px; }
+.btnlink { font-size: 13px; font-weight: 600; color: var(--primary); text-decoration: none; }
+.btnlink:hover { text-decoration: underline; }
 @media (max-width: 980px) {
   main { grid-template-columns: 1fr; }
   .log-card { grid-column: auto; }
@@ -108,6 +132,18 @@ tr:hover td { background: #fafbfd; }
 </header>
 
 <main>
+  <!-- 待审核提交（飞书收集表） -->
+  <section class="card pending-card">
+    <div class="pending-head">
+      <h2>待审核提交 <span class="pending-count zero" id="pendingCount">—</span></h2>
+      <span class="spacer"></span>
+      <label class="check" style="margin:0"><input type="checkbox" id="showDone"> 显示已处理</label>
+      <button type="button" id="btnRefreshSubs">刷新提交</button>
+      <a id="openTable" class="btnlink" href="#" target="_blank" rel="noopener" style="display:none">打开收集表 ↗</a>
+    </div>
+    <div id="pendingBody" class="pending-empty">加载中…</div>
+  </section>
+
   <!-- 工具表单 -->
   <section class="card">
     <h2 id="formTitle">新增工具</h2>

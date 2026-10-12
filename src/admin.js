@@ -251,6 +251,182 @@ async function gitPush(message) {
   return { ok: p2.ok, output: p2.ok ? `已提交并推送（建立跟踪）：\n${combined}` : `git push 失败：\n${out2}` };
 }
 
+/* ---------------- 提交收集表（飞书多维表格） ----------------
+ * 只读拉取「别人提交的工具」，字段映射成 tools.json 的草稿；不改动站点数据。
+ * 处理进度写回收集表的「收录状态」字段（待审核 / 已收录 / 已忽略），状态跟着数据走，
+ * 换机器也认。配置放在 data/submissions.local.json（已 gitignore，不入库）。
+ */
+
+const SUBMISSIONS_CONFIG = join(ROOT, 'data/submissions.local.json');
+
+function loadSubmissionsConfig() {
+  if (!existsSync(SUBMISSIONS_CONFIG)) return null;
+  try {
+    const cfg = JSON.parse(readFileSync(SUBMISSIONS_CONFIG, 'utf8'));
+    if (!cfg.baseToken || !cfg.tableId) return null;
+    return cfg;
+  } catch {
+    return null;
+  }
+}
+
+/** lark-cli 位置：环境变量 → 配置 → 常见安装路径 → 交给 PATH */
+function larkCliPath() {
+  const cfg = loadSubmissionsConfig();
+  const home = process.env.HOME || '';
+  const candidates = [
+    process.env.LARK_CLI,
+    cfg && cfg.larkCli,
+    join(home, '.workbuddy-ai/binaries/node/cli-connector-packages/bin/lark-cli'),
+    '/opt/homebrew/bin/lark-cli',
+    '/usr/local/bin/lark-cli',
+  ].filter(Boolean);
+  for (const p of candidates) if (existsSync(p)) return p;
+  return 'lark-cli';
+}
+
+/** 收集表选项 → tools.json 枚举。表单里是中文，数据里是英文 slug。 */
+const CATEGORY_FROM_FORM = {
+  '文生视频 / 图生视频': 'text-to-video',
+  '文生视频': 'text-to-video',
+  'AI 剪辑': 'ai-editing',
+  '数字人口播': 'digital-human',
+  '翻译与配音': 'translation-dubbing',
+  '素材生成': 'asset-generation',
+  '增强与修复': 'video-enhance',
+};
+const PRICING_FROM_FORM = { 免费: 'free', '免费+付费': 'freemium', 付费: 'paid', 限时试用: 'trial' };
+const ACCESS_FROM_FORM = { 可直接访问: 'direct', 需要特殊网络环境: 'proxy', 不确定: 'unknown' };
+
+/** 单元格取值：select 返回数组，text 返回字符串，空为 null */
+function cellText(v) {
+  if (Array.isArray(v)) return v.length ? String(v[0]).trim() : '';
+  if (v === null || v === undefined) return '';
+  return String(v).trim();
+}
+
+function mapCategory(raw, categories) {
+  const s = String(raw || '').trim();
+  if (!s) return '';
+  if (CATEGORY_FROM_FORM[s]) return CATEGORY_FROM_FORM[s];
+  const head = s.split(/[/／|,，\s]+/)[0];
+  const hit = categories.find((c) => c.name === s || c.name === head || s.startsWith(c.name) || c.name.startsWith(head));
+  return hit ? hit.slug : '';
+}
+
+/** 从官网域名猜 slug：中文工具名无法直接转写，域名是最稳的来源 */
+function suggestSlug(name, website) {
+  const fromName = String(name || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 40);
+  if (fromName) return fromName;
+  try {
+    const host = new URL(website).hostname.replace(/^www\./, '');
+    const label = host.split('.')[0] || '';
+    return label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+  } catch {
+    return '';
+  }
+}
+
+async function larkRun(args) {
+  return run(larkCliPath(), args);
+}
+
+async function fetchSubmissions() {
+  const cfg = loadSubmissionsConfig();
+  if (!cfg) {
+    return { ok: false, configured: false, error: '尚未配置收集表：请在 data/submissions.local.json 填写 baseToken / tableId' };
+  }
+  const r = await larkRun([
+    'base', '+record-list',
+    '--base-token', cfg.baseToken,
+    '--table-id', cfg.tableId,
+    '--format', 'json',
+    '--limit', '200',
+    '--as', cfg.as || 'user',
+  ]);
+  if (r.code === 'ENOENT') {
+    return { ok: false, configured: true, error: `未找到 lark-cli（尝试路径：${larkCliPath()}）。请安装飞书连接器，或在配置里指定 larkCli 绝对路径。` };
+  }
+  if (!r.ok) {
+    const detail = (r.stderr || r.stdout || '').trim().slice(0, 600);
+    return { ok: false, configured: true, error: `读取收集表失败：${detail || '未知错误'}` };
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(r.stdout);
+  } catch {
+    return { ok: false, configured: true, error: 'lark-cli 返回的不是合法 JSON（可能登录态失效，请先跑 lark-cli auth status）' };
+  }
+  if (!parsed.ok) {
+    return { ok: false, configured: true, error: `收集表接口返回失败：${parsed.error?.message || JSON.stringify(parsed.error || parsed).slice(0, 300)}` };
+  }
+
+  const d = parsed.data || {};
+  const fields = d.fields || [];
+  const rows = d.data || [];
+  const ids = d.record_id_list || [];
+  const data = readData();
+
+  const items = rows.map((row, i) => {
+    const rec = {};
+    fields.forEach((f, j) => { rec[f] = row[j]; });
+    const website = cellText(rec['官网链接']);
+    const name = cellText(rec['工具名称']);
+    const draft = {
+      name,
+      slug: suggestSlug(name, website),
+      category: mapCategory(cellText(rec['所属分类']), data.categories),
+      tagline: cellText(rec['一句话简介']),
+      description: cellText(rec['补充说明']),
+      website,
+      pricing: PRICING_FROM_FORM[cellText(rec['定价模式'])] || 'freemium',
+      access: ACCESS_FROM_FORM[cellText(rec['国内访问情况'])] || 'unknown',
+      tags: cellText(rec['标签']).split(/[,，]/).map((s) => s.trim()).filter(Boolean),
+    };
+    const slugTaken = draft.slug && data.tools.some((t) => t.slug === draft.slug);
+    return {
+      recordId: ids[i] || '',
+      status: cellText(rec['收录状态']) || '待审核',
+      email: cellText(rec['你的邮箱']),
+      submittedAt: cellText(rec['提交时间']),
+      raw: {
+        category: cellText(rec['所属分类']),
+        pricing: cellText(rec['定价模式']),
+        access: cellText(rec['国内访问情况']),
+      },
+      draft,
+      slugTaken: !!slugTaken,
+      categoryMapped: !!draft.category,
+    };
+  });
+
+  return { ok: true, configured: true, items, hasMore: !!d.has_more, tableUrl: cfg.tableUrl || '' };
+}
+
+async function setSubmissionStatus(recordId, status) {
+  const cfg = loadSubmissionsConfig();
+  if (!cfg) return { ok: false, error: '尚未配置收集表' };
+  if (!recordId) return { ok: false, error: '缺少 recordId' };
+  const allowed = ['待审核', '已收录', '已忽略'];
+  if (!allowed.includes(status)) return { ok: false, error: `状态非法（需 ${allowed.join('/')}）：${status}` };
+  const field = cfg.statusField || '收录状态';
+  const payload = JSON.stringify({ update_records: { [recordId]: { [field]: [status] } } });
+  const r = await larkRun([
+    'base', '+record-batch-update',
+    '--base-token', cfg.baseToken,
+    '--table-id', cfg.tableId,
+    '--json', payload,
+    '--as', cfg.as || 'user',
+  ]);
+  if (r.code === 'ENOENT') return { ok: false, error: '未找到 lark-cli' };
+  if (!r.ok) return { ok: false, error: `更新状态失败：${(r.stderr || r.stdout || '').trim().slice(0, 400)}` };
+  return { ok: true, status };
+}
+
 /* ---------------- 孤儿图标清理 ---------------- */
 
 function removeOrphanLogo(logoPath, dataAfter) {
@@ -347,6 +523,18 @@ async function handleApi(req, res, pathname) {
     }
     return;
   }
+  if (pathname === '/api/submissions') {
+    if (req.method !== 'GET') {
+      sendJson(res, 405, { ok: false, error: '仅支持 GET' });
+      return;
+    }
+    try {
+      sendJson(res, 200, await fetchSubmissions());
+    } catch (e) {
+      sendJson(res, 500, { ok: false, configured: true, error: `读取提交失败：${e.message}` });
+    }
+    return;
+  }
   if (req.method !== 'POST') {
     sendJson(res, 405, { ok: false, error: '仅支持 POST' });
     return;
@@ -432,6 +620,12 @@ async function handleApi(req, res, pathname) {
     writeData(data);
     const build = await buildSite();
     sendJson(res, 200, { ok: true, removed, build });
+    return;
+  }
+
+  if (pathname === '/api/submissions/status') {
+    const result = await setSubmissionStatus(String(body.recordId || '').trim(), String(body.status || '').trim());
+    sendJson(res, result.ok ? 200 : 400, result);
     return;
   }
 
