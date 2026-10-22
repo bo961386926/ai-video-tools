@@ -38,14 +38,19 @@ export function renderTool({ site, tool, category, related }) {
 
   /* ---------- 常见问题（可见内容与 FAQPage 结构化数据同源，避免被判不一致） ---------- */
   const pricingAnswer = () => {
-    const base =
-      {
-        free: '完全免费',
-        freemium: '提供免费额度，超出后需订阅付费版',
-        paid: '没有长期免费版，需要付费使用',
-        trial: '提供限时试用，试用结束后需付费',
-      }[tool.pricing] || '定价模式以官网为准';
-    return tool.freeQuota ? `${base}。免费额度：${tool.freeQuota}。` : `${base}，具体额度以官网为准。`;
+    const q = (tool.freeQuota || '').replace(/[。\s]+$/, '');
+    switch (tool.pricing) {
+      case 'free':
+        return q ? `完全免费：${q}。` : '完全免费，没有付费墙。';
+      case 'freemium':
+        return q ? `有免费额度：${q}。` : '有免费额度，具体额度和限制以官网为准，超出后需付费。';
+      case 'trial':
+        return q ? `提供限时试用：${q}。` : '提供限时试用，试用结束后需付费。';
+      case 'paid':
+        return q ? `需要付费使用，${q}。` : '不提供免费版，需要付费使用。';
+      default:
+        return '定价模式以官网为准。';
+    }
   };
   const accessAnswer = () =>
     ({

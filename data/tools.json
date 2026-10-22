@@ -278,7 +278,6 @@
       "updatedAt": "2026-10-12",
       "logo": "assets/logos/topaz-video-ai.png",
       "access": "proxy",
-      "freeQuota": "无免费额度，仅提供试用",
       "cons": "仅本地运行，对显卡要求高，价格偏贵",
       "verifiedAt": "2026-10-22"
     },
@@ -581,7 +580,10 @@
       "access": "direct",
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/video2x.png"
+      "logo": "assets/logos/video2x.png",
+      "freeQuota": "开源项目，本地运行不限次数",
+      "cons": "需要独立显卡，命令行配置有门槛",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "real-esrgan",
@@ -921,7 +923,7 @@
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
       "logo": "assets/logos/bcut.ico",
-      "freeQuota": "完全免费，无时长限制",
+      "freeQuota": "无时长限制，导出不带水印",
       "cons": "仅桌面端，模板同质化明显",
       "verifiedAt": "2026-10-22"
     },
