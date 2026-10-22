@@ -54,6 +54,9 @@ npm run admin          # 启动收录工作台 → 浏览器打开 http://127.0.
 | `tags` | | 标签数组，如 `["文生视频","国产"]` |
 | `logo` | | 本地路径 `assets/logos/xxx.png` 或外链；留空则渲染首字母头像 |
 | `access` | | `direct` 国内可直连 / `proxy` 需特殊网络 / `unknown` 待核验 |
+| `freeQuota` | | 免费额度的**具体**说明（≤60 字），如「注册赠送一次性 125 credits」。写具体额度才有人信，也是长尾词来源 |
+| `cons` | | 一句话缺点 / 注意事项（≤80 字），如「免费额度一次性，生成排队久」 |
+| `verifiedAt` | | `YYYY-MM-DD`，信息最后核验日期。详情页显示「额度与价格以官网为准」，避免额度变动后被指信息失真 |
 | `rating` | | 0–5 评分（如 `4.5`），留空则不显示 ★ 评分 |
 | `likes` | | 初始点赞数（整数）；访客的点赞在本地 +1，不写回数据 |
 | `featured` | | `true` 时出现在首页「编辑推荐」 |
@@ -63,6 +66,18 @@ npm run admin          # 启动收录工作台 → 浏览器打开 http://127.0.
 
 **预留赞助位**：`site.sponsors` 字段为后期接入预留，当前为空不影响构建。
 
+### 判断层字段（差异化内容）
+
+`freeQuota` / `cons` / `access` / `verifiedAt` 这四个字段是本站与「又一个 AI 导航」的分界线：只抄工具名和官网链接，谁都做得到；写出**免费额度具体多少、国内到底能不能直接用、有什么坑**，才有被引用和被搜索的理由。
+
+有这几个字段的详情页会多出：
+
+- 关键信息表里的「免费额度 / 国内访问 / 注意事项 / 信息核验」四行
+- 页面底部「常见问题」区块，三问由数据派生、不靠臆造：`XX 免费吗？`（pricing + freeQuota）、`XX 国内可以直接访问吗？`（access）、`XX 有哪些同类工具？`（同分类工具内链）
+- 与可见区块同源的 `FAQPage` 结构化数据，以及把免费额度拼进 meta description 的搜索结果摘要
+
+> 免费额度写具体数字、并保留 `verifiedAt`：额度会随官方政策变，页面上已注明「以官网为准」，同时核验日期本身就是可信度的一部分。**不要为了填满而编数字** —— 宁可留空，页面会自动少一行、FAQ 自动少一问。
+
 ### 站点级字段（`site`）
 
 | 字段 | 说明 |
@@ -70,6 +85,7 @@ npm run admin          # 启动收录工作台 → 浏览器打开 http://127.0.
 | `name` / `domain` / `description` | 站名、正式域名（canonical / sitemap / robots / og:image 都取它）、站点简介 |
 | `repo` | 代码仓库地址，用于生成 Issue 入口 |
 | `submitForm` | 「提交工具」的在线收集表填写地址；留空则提交页与页脚不显示表单入口 |
+| `icp` | 备案号（如 `浙ICP备12345678号-1`）。有值才在页脚渲染并链接工信部查询页；工信部要求展示，同时是搜索引擎的信任信号 |
 
 `src/pages/*.html` 是固定页正文片段，构建时支持占位符注入，避免把外部链接硬编码进 HTML：
 
@@ -176,6 +192,27 @@ cp data/submissions.example.json data/submissions.local.json
   ```
 
   产出三样：终端摘要、`logs/report.html`（带条形图，浏览器打开）、`logs/report-<日期>.md` 快照。报告同时给出两个口径 —— 「真人浏览」（信标）与「全部流量」（含爬虫/搜索引擎抓取，用于观察收录进度与安全扫描）。
+
+- **渠道归因（`utm_source`）**：信标只上报 pathname，不含 query，所以 `?utm_source=` 不会进 `p` 参数；但 `px.gif` 是同源子资源，浏览器请求它时会带 `Referer` = 当前页完整 URL（含 query），报告就是从这一列提取 `utm_source` 的（Referer 被裁掉时，退化为「同 IP 30 分钟内的落地页请求」匹配）。**所有对外投放的链接统一带 `?utm_source=<渠道>`**，否则报告只能看到「多了几个 PV」，分不清是谁带来的
+- **两个口径别混用**：「疑似真人 IP」是启发式（浏览器 UA 且取过 CSS/JS），伪装 UA 的抓取器也会命中，数字会明显高于信标 UV；做决策一律看信标口径
+- **落盘是命门**：边缘容器的 Nginx 日志写在容器可写层，容器重建即清零，宿主机 `logs/edge.log`（由 root crontab 每 15 分钟跑 `pull-edge-log.sh` 增量追加）是唯一长期留存。排查时先看 `logs/pull.log` 有没有持续在追加
+
+## 收录推送（主动提交给搜索引擎）
+
+被动等爬虫发现不够快：本站上线十天后实测 Baiduspider 只抓了首页 1 个页面（Googlebot 已抓 88/90），所以必须有主动通道。
+
+```bash
+node src/build.js            # 先构建，保证 sitemap / IndexNow key 文件是最新的
+node scripts/push-urls.mjs --dry-run   # 只打印，不联网
+node scripts/push-urls.mjs             # 增量推送（按 lastmod 判断，state 存 .workbuddy-ai/push-state.json）
+```
+
+两条通道：
+
+- **百度主动推送**：`普通收录 → API 提交`，把 token 存到 `.workbuddy-ai/baidu.token`（不入库）。有单日配额，脚本默认每次最多推 100 条，可用 `--limit=N` 收窄
+- **IndexNow**：覆盖 Bing / Yandex / Seznam，而 Bing 索引是 ChatGPT、Copilot 联网检索的重要来源之一。key 由构建时自动生成到 `.workbuddy-ai/indexnow.key`，并输出 `dist/<key>.txt`；**Key 文件必须随站点一起上线**，否则接口返回 403
+
+Google 没有推送接口：在 Search Console 提交 `sitemap.xml` 即可，它会按 `lastmod` 自行重抓。
 
 ## SEO 与结构说明
 

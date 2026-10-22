@@ -343,6 +343,22 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .tool-facts th { color: var(--text-secondary); font-weight: 500; width: 96px; white-space: nowrap; }
 .tool-facts tr:last-child th, .tool-facts tr:last-child td { border-bottom: none; }
 
+/* ---------- 工具页常见问题（可见内容，与 FAQPage 结构化数据同源） ---------- */
+.tool-faq { margin: 28px 0 8px; max-width: 760px; }
+.tool-faq h2 { font-size: 20px; margin: 0 0 12px; }
+.tool-faq details {
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface); padding: 12px 16px; margin-bottom: 10px;
+}
+.tool-faq summary {
+  cursor: pointer; font-weight: 600; font-size: 15px; color: var(--text);
+  list-style: none; display: flex; justify-content: space-between; gap: 12px;
+}
+.tool-faq summary::-webkit-details-marker { display: none; }
+.tool-faq summary::after { content: '+'; color: var(--primary); font-weight: 700; flex: none; }
+.tool-faq details[open] summary::after { content: '−'; }
+.tool-faq p { margin: 10px 0 0; color: var(--text-secondary); font-size: 14.5px; line-height: 1.75; }
+
 /* ---------- 静态页 ---------- */
 .static-page { max-width: 780px; padding: 24px 0 48px; }
 .static-page h1 { font-size: clamp(24px, 3.4vw, 32px); margin-top: 16px; }

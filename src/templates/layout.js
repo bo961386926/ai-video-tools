@@ -20,6 +20,11 @@ export function renderLayout({ site, title, description, path, depth, navKey, bo
 
   const year = new Date().getFullYear();
 
+  // 备案号：site.icp 有值才渲染（工信部要求页脚展示，同时是搜索引擎的信任信号）
+  const icp = site.icp
+    ? ` · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">${esc(site.icp)}</a>`
+    : '';
+
   // 访问计数信标：只上报「真的把页面渲染出来」的客户端（爬虫不执行 JS，天然被排除）
   // - 主站与 GitHub Pages 镜像共用同一段代码，靠 s=main|mirror 区分来源
   // - 本地预览（localhost / 127.0.0.1 / file:）不上报，避免污染统计
@@ -91,7 +96,7 @@ ${body}
       <a href="${prefix}submit.html">提交工具</a>
       ${site.submitForm ? `<a href="${esc(site.submitForm)}" target="_blank" rel="noopener">在线提交表单</a>` : ''}
     </nav>
-    <p class="footer-note">工具信息经人工整理，定价与功能以各官网为准；本站与所列工具无商业关联。© ${year}</p>
+    <p class="footer-note">工具信息经人工整理，定价与功能以各官网为准；本站与所列工具无商业关联。© ${year}${icp}</p>
   </div>
 </footer>
 <script src="${prefix}assets/js/main.js" defer></script>

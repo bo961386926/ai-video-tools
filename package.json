@@ -7,6 +7,8 @@
   "scripts": {
     "build": "node src/build.js",
     "admin": "node src/admin.js",
-    "preview": "node src/build.js && npx --yes serve dist -l 4173"
+    "preview": "node src/build.js && npx --yes serve dist -l 4173",
+    "push": "node scripts/push-urls.mjs",
+    "stats": "node .workbuddy-ai/aitools/stats.mjs"
   }
 }

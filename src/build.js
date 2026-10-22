@@ -7,6 +7,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { randomBytes } from 'node:crypto';
 
 const SRC_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SRC_DIR, '..');
@@ -45,6 +46,9 @@ function validate(data) {
       if (site[k] && !/^https?:\/\//.test(site[k])) errors.push(`site.${k} 必须以 http(s):// 开头：${site[k]}`);
     }
     if (!site.submitForm) warnings.push('site.submitForm 缺失，「提交工具」页将没有在线表单入口');
+    // 页脚备案号：工信部要求展示，同时也是搜索引擎的信任信号
+    if (!site.icp) warnings.push('site.icp 缺失，页脚不会渲染备案号（已备案的话建议补上）');
+    else if (typeof site.icp !== 'string') errors.push('site.icp 需为字符串（如「浙ICP备12345678号-1」）');
   }
 
   if (!Array.isArray(categories) || categories.length === 0) errors.push('categories 不能为空');
@@ -81,6 +85,18 @@ function validate(data) {
     }
     if (t.access && !['direct', 'proxy', 'unknown'].includes(t.access)) {
       errors.push(`${p}.access 非法（需 direct/proxy/unknown）：${t.access}`);
+    }
+    // 判断层字段：这三个是差异化内容（长尾词 + 可被 AI 引用的结论句）的载体，格式必须收紧
+    if (t.freeQuota !== undefined) {
+      if (typeof t.freeQuota !== 'string' || !t.freeQuota.trim()) errors.push(`${p}(${t.slug}).freeQuota 需为非空字符串`);
+      else if ([...t.freeQuota].length > 60) warnings.push(`${p}(${t.slug}).freeQuota 过长（${[...t.freeQuota].length} 字，建议 ≤60）`);
+    }
+    if (t.cons !== undefined) {
+      if (typeof t.cons !== 'string' || !t.cons.trim()) errors.push(`${p}(${t.slug}).cons 需为非空字符串`);
+      else if ([...t.cons].length > 80) warnings.push(`${p}(${t.slug}).cons 过长（${[...t.cons].length} 字，建议 ≤80）`);
+    }
+    if (t.verifiedAt && !/^\d{4}-\d{2}-\d{2}$/.test(t.verifiedAt)) {
+      errors.push(`${p}(${t.slug}).verifiedAt 日期格式应为 YYYY-MM-DD：${t.verifiedAt}`);
     }
     if (t.rating !== undefined && t.rating !== null && (typeof t.rating !== 'number' || t.rating < 0 || t.rating > 5)) {
       errors.push(`${p}(${t.slug}).rating 需为 0-5 之间的数字：${t.rating}`);
@@ -172,6 +188,16 @@ function build() {
   }
 
   // 工具详情页
+  /** 详情页 meta description：tagline + 免费额度 + 国内可用性，比单段简介更容易在搜索结果里被点开 */
+  const toolMetaDesc = (t) =>
+    [
+      t.tagline,
+      t.freeQuota ? `免费额度：${t.freeQuota}` : '',
+      t.access === 'direct' ? '国内可直接访问' : t.access === 'proxy' ? '需特殊网络环境' : '',
+    ]
+      .filter(Boolean)
+      .join('。')
+      .slice(0, 120);
   for (const t of tools) {
     const cat = categories.find((c) => c.slug === t.category);
     const related = (byCat.get(t.category) || []).filter((x) => x.slug !== t.slug).slice(0, 6);
@@ -182,7 +208,7 @@ function build() {
       html: renderLayout({
         site,
         title: `${t.name} - ${t.tagline} - ${site.name}`,
-        description: t.description ? t.description.slice(0, 120) : t.tagline,
+        description: toolMetaDesc(t),
         path: `/tool/${t.slug}.html`,
         depth: 1,
         ogImage: ogFor(`tool/${t.slug}`),
@@ -311,6 +337,25 @@ function build() {
     'utf8'
   );
 
+  /* ---------- IndexNow key 验证文件 ----------
+   * Bing / Yandex / Seznam 等要求站根存在 /<key>.txt，内容与该文件名一致，才接受即时推送。
+   * key 存放在 .workbuddy-ai/（已 gitignore），首次构建自动生成并保持不变；
+   * CI（无该目录）自动跳过，不影响构建。 */
+  const keyDir = join(ROOT, '.workbuddy-ai');
+  const keyFile = join(keyDir, 'indexnow.key');
+  let indexnowKey = process.env.INDEXNOW_KEY || '';
+  if (!indexnowKey && existsSync(keyFile)) indexnowKey = readFileSync(keyFile, 'utf8').trim();
+  if (!indexnowKey && existsSync(keyDir)) {
+    indexnowKey = randomBytes(16).toString('hex');
+    writeFileSync(keyFile, `${indexnowKey}\n`, 'utf8');
+    console.log(`  IndexNow key 已生成：${keyFile}`);
+  }
+  if (indexnowKey && !/^[a-f0-9]{16,128}$/i.test(indexnowKey)) {
+    console.warn('⚠ INDEXNOW_KEY 格式非法（需 16-128 位十六进制），已跳过 key 文件输出');
+    indexnowKey = '';
+  }
+  if (indexnowKey) writeFileSync(join(DIST, `${indexnowKey}.txt`), indexnowKey, 'utf8');
+
   /* ---------- 内部死链检测 ---------- */
   const pageFiles = new Set(pages.map((p) => p.file));
   const deadLinks = [];
@@ -355,6 +400,8 @@ function build() {
   console.log('✓ 构建完成');
   console.log(`  页面总数：${pages.length}（首页 1 + 分类 ${categories.length} + 工具 ${tools.length} + 固定页 3）`);
   console.log(`  分享卡：${ogFiles.length} 张 og:image 全部就位`);
+  console.log(`  判断层字段：${tools.filter((t) => t.freeQuota && t.cons).length}/${tools.length} 个工具已有「免费额度 + 注意事项」`);
+  console.log(`  IndexNow：${indexnowKey ? `key 文件已输出 /${indexnowKey.slice(0, 8)}….txt` : '未启用'}`);
   console.log(`  分类：${categories.map((c) => c.name).join(' / ')}`);
   console.log(`  输出目录：${DIST}`);
 }

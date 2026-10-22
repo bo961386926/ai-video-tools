@@ -74,7 +74,11 @@
       "featured": true,
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/runway.png"
+      "logo": "assets/logos/runway.png",
+      "access": "proxy",
+      "freeQuota": "注册赠送一次性 125 credits，用完需订阅",
+      "cons": "额度一次性，生成排队久，国内需特殊网络",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "kling",
@@ -92,7 +96,11 @@
       "featured": true,
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/kling.png"
+      "logo": "assets/logos/kling.png",
+      "access": "direct",
+      "freeQuota": "每日签到领积分，按天发放",
+      "cons": "免费用户排队时间长，成片带水印",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "jimeng",
@@ -110,7 +118,11 @@
       "featured": true,
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/jimeng.ico"
+      "logo": "assets/logos/jimeng.ico",
+      "access": "direct",
+      "freeQuota": "每日登录赠送积分，国内手机号可注册",
+      "cons": "免费额度按天清零，长视频需付费",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "sora",
@@ -207,7 +219,11 @@
         "多语言"
       ],
       "addedAt": "2026-10-12",
-      "updatedAt": "2026-10-12"
+      "updatedAt": "2026-10-12",
+      "access": "proxy",
+      "freeQuota": "免费版每月约 1 分钟视频，带水印",
+      "cons": "免费额度极小，数字人口型偶有偏差",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "elevenlabs",
@@ -224,7 +240,11 @@
       ],
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/elevenlabs.png"
+      "logo": "assets/logos/elevenlabs.png",
+      "access": "proxy",
+      "freeQuota": "每月 10,000 字符，免费版需标注来源",
+      "cons": "中文语气偏机械，免费版强制署名",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "suno",
@@ -256,7 +276,11 @@
       ],
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/topaz-video-ai.png"
+      "logo": "assets/logos/topaz-video-ai.png",
+      "access": "proxy",
+      "freeQuota": "无免费额度，仅提供试用",
+      "cons": "仅本地运行，对显卡要求高，价格偏贵",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "minimax-hailuo",
@@ -896,7 +920,10 @@
       "access": "direct",
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/bcut.ico"
+      "logo": "assets/logos/bcut.ico",
+      "freeQuota": "完全免费，无时长限制",
+      "cons": "仅桌面端，模板同质化明显",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "kwaiying",
@@ -932,7 +959,10 @@
       "access": "proxy",
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/synthesia.png"
+      "logo": "assets/logos/synthesia.png",
+      "freeQuota": "免费版每月 3 分钟视频，带水印",
+      "cons": "免费版水印明显，自定义形象需企业版",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "d-id",
@@ -1181,7 +1211,10 @@
       "access": "proxy",
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/murf.png"
+      "logo": "assets/logos/murf.png",
+      "freeQuota": "免费版每月 10 分钟，仅限非商用",
+      "cons": "中文音色少，免费版不能商用",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "playht",
@@ -1287,7 +1320,10 @@
       "access": "direct",
       "addedAt": "2026-10-12",
       "updatedAt": "2026-10-12",
-      "logo": "assets/logos/ttsmaker.ico"
+      "logo": "assets/logos/ttsmaker.ico",
+      "freeQuota": "免费版有单次字数上限，商用需单独授权",
+      "cons": "音色质量参差，长文本需分段处理",
+      "verifiedAt": "2026-10-22"
     },
     {
       "slug": "moyin",
