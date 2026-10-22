@@ -5,6 +5,7 @@ export function renderCategory({ site, categories, category, list, byCat }) {
   const idx = categories.findIndex((c) => c.slug === category.slug);
   const color = catColor(category, idx < 0 ? 0 : idx);
   const freeCount = list.filter(isFreeUsable).length;
+  const directCount = list.filter((t) => t.access === 'direct').length;
 
   const itemListJsonLD = {
     '@context': 'https://schema.org',
@@ -38,7 +39,7 @@ export function renderCategory({ site, categories, category, list, byCat }) {
   <header class="page-header">
     <h1><span class="section-dot" style="background:${color}"></span>${esc(category.name)}</h1>
     <p>${esc(category.description)}</p>
-    <p class="page-meta">共收录 ${list.length} 款工具 · 其中 ${freeCount} 款可免费使用</p>
+    <p class="page-meta">共收录 ${list.length} 款工具 · 其中 ${freeCount} 款可免费使用 · ${directCount} 款国内可直接访问</p>
   </header>
 
   ${filterBar('category')}

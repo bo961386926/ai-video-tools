@@ -19,6 +19,7 @@ export function renderTool({ site, tool, category, related }) {
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'Web',
     description: tool.description || tool.tagline,
+    ...(tool.verifiedAt ? { dateModified: tool.verifiedAt } : {}),
     offers:
       tool.pricing === 'free' || tool.pricing === 'freemium' || tool.pricing === 'trial'
         ? { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
@@ -137,7 +138,7 @@ export function renderTool({ site, tool, category, related }) {
         ${tool.cons ? `<tr><th scope="row">注意事项</th><td>${esc(tool.cons)}</td></tr>` : ''}
         <tr><th scope="row">官方网站</th><td><a href="${esc(tool.website)}"${externalLinkAttrs}>${esc(tool.website)}</a></td></tr>
         ${tool.addedAt ? `<tr><th scope="row">收录时间</th><td>${esc(tool.addedAt)}</td></tr>` : ''}
-        ${tool.verifiedAt ? `<tr><th scope="row">信息核验</th><td>${esc(tool.verifiedAt)}（额度与价格以官网为准）</td></tr>` : ''}
+        ${tool.verifiedAt ? `<tr><th scope="row">信息更新</th><td>${esc(tool.verifiedAt)}（额度与价格以官网为准）</td></tr>` : ''}
       </tbody>
     </table>
   </article>

@@ -45,17 +45,27 @@
     });
   });
 
-  /* ---------------- 价格筛选 ---------------- */
+  /* ---------------- 筛选（价格 × 国内可访问性，可组合） ---------------- */
   var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.tools-filter-btn'));
-  var activeFilter = 'all';
+  var freeOnly = false;
+  var directOnly = false;
+
+  function paintFilters() {
+    filterBtns.forEach(function (b) {
+      var kind = b.getAttribute('data-filter');
+      var on = kind === 'all' ? !freeOnly && !directOnly : kind === 'free' ? freeOnly : directOnly;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
   filterBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      activeFilter = btn.getAttribute('data-filter') || 'all';
-      filterBtns.forEach(function (b) {
-        var on = b === btn;
-        b.classList.toggle('active', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
+      var kind = btn.getAttribute('data-filter');
+      if (kind === 'all') { freeOnly = false; directOnly = false; }
+      else if (kind === 'free') freeOnly = !freeOnly;
+      else if (kind === 'direct') directOnly = !directOnly;
+      paintFilters();
       apply();
     });
   });
@@ -76,7 +86,10 @@
     items.forEach(function (el) {
       var hay = (el.getAttribute('data-search') || '').toLowerCase();
       var pricing = el.getAttribute('data-pricing') || '';
-      var show = (!q || hay.indexOf(q) !== -1) && (activeFilter === 'all' || freeUsable(pricing));
+      var access = el.getAttribute('data-access') || 'unknown';
+      var show = (!q || hay.indexOf(q) !== -1)
+        && (!freeOnly || freeUsable(pricing))
+        && (!directOnly || access === 'direct');
       var host = el.closest('li') || el;
       host.style.display = show ? '' : 'none';
       el.setAttribute('data-hidden', show ? '0' : '1');
@@ -97,6 +110,6 @@
     var hint = document.querySelector('[data-empty-hint]');
     if (hint) hint.hidden = visible > 0;
 
-    if (count) count.textContent = q || activeFilter !== 'all' ? '找到 ' + visible + ' 款工具' : '';
+    if (count) count.textContent = q || freeOnly || directOnly ? '找到 ' + visible + ' 款工具' : '';
   }
 })();

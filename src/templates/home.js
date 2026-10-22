@@ -6,6 +6,7 @@ export function renderHome({ site, categories, tools, byCat }) {
   const recent = tools.slice(0, 8);
   const total = tools.length;
   const freeCount = tools.filter(isFreeUsable).length;
+  const directCount = tools.filter((t) => t.access === 'direct').length;
   const lastUpdate = tools.map((t) => t.updatedAt).filter(Boolean).sort().at(-1) || '每日';
 
   const countOf = (c) => (byCat.get(c.slug) || []).length;
@@ -66,8 +67,9 @@ export function renderHome({ site, categories, tools, byCat }) {
     </div>
     ${statsBar([
       [total, '款收录工具'],
-      [categories.length, '大分类'],
       [freeCount, '款可免费使用'],
+      [directCount, '款国内可直连'],
+      [categories.length, '大分类'],
       [lastUpdate, '最近更新'],
     ])}
   </div>

@@ -58,7 +58,7 @@ export const toolRow = (tool, depth = 1) => {
   const prefix = '../'.repeat(depth);
   const searchText = [tool.name, tool.tagline, ...(tool.tags || [])].join(' ');
   const likes = typeof tool.likes === 'number' ? tool.likes : 0;
-  return `<article class="tool-row" data-search="${esc(searchText)}" data-pricing="${esc(tool.pricing)}">
+  return `<article class="tool-row" data-search="${esc(searchText)}" data-pricing="${esc(tool.pricing)}" data-access="${esc(tool.access || 'unknown')}">
   <a class="tool-row-link" href="${prefix}tool/${tool.slug}.html">
     <span class="tool-row-icon">${toolLogo(tool, depth)}</span>
     <span class="tool-row-main">
@@ -87,18 +87,19 @@ export const catChips = (categories, countOf, hrefOf) =>
     .map((c, i) => `<a class="cat-chip" href="${esc(hrefOf(c))}"><span class="cat-chip-dot" style="background:${catColor(c, i)}"></span>${esc(c.name)}<b>${countOf(c)}</b></a>`)
     .join('')}</nav>`;
 
-/** 价格筛选栏 */
+/** 筛选栏：三个可组合的开关（全部 / 免费可用 / 国内直连），对应「价格 × 网络」两个维度 */
 export const filterBar = (scope = '') =>
-  `<div class="tools-filter" data-filter-scope="${esc(scope)}" role="group" aria-label="价格筛选">
+  `<div class="tools-filter" data-filter-scope="${esc(scope)}" role="group" aria-label="工具筛选">
   <button type="button" class="tools-filter-btn active" data-filter="all" aria-pressed="true">全部工具</button>
-  <button type="button" class="tools-filter-btn" data-filter="free" aria-pressed="false">只看免费</button>
+  <button type="button" class="tools-filter-btn" data-filter="free" aria-pressed="false">免费可用</button>
+  <button type="button" class="tools-filter-btn" data-filter="direct" aria-pressed="false">国内直连</button>
 </div>`;
 
 /** 工具卡片（详情页「相关工具」沿用）——<article> 语义标签，data-search 供站内搜索过滤 */
 export const toolCard = (tool, depth = 1) => {
   const prefix = '../'.repeat(depth);
   const searchText = [tool.name, tool.tagline, ...(tool.tags || [])].join(' ');
-  return `<article class="tool-card" data-search="${esc(searchText)}">
+  return `<article class="tool-card" data-search="${esc(searchText)}" data-pricing="${esc(tool.pricing)}" data-access="${esc(tool.access || 'unknown')}">
   <a class="tool-card-link" href="${prefix}tool/${tool.slug}.html">
     <div class="tool-card-head">
       ${toolLogo(tool, depth)}
