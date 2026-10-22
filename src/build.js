@@ -7,7 +7,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, createHash } from 'node:crypto';
 
 const SRC_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SRC_DIR, '..');
@@ -141,6 +141,15 @@ import { renderNotFound } from './templates/not-found.js';
 function build() {
   const data = loadData();
   const { site, categories, tools } = data;
+
+  /* 静态资源版本号：CSS/JS 被 nginx 缓存 7 天（max-age=604800），
+   * 不加版本号时老访客会「新 HTML + 旧 JS」，交互直接错乱（如新筛选按钮点了没反应）。
+   * 取两者的内容哈希：内容不变版本不变（缓存继续命中），一改就换 URL。 */
+  site.assetVer = createHash('sha1')
+    .update(readFileSync(join(SRC_DIR, 'assets/css/style.css')))
+    .update(readFileSync(join(SRC_DIR, 'assets/js/main.js')))
+    .digest('hex')
+    .slice(0, 8);
   const byCat = new Map(categories.map((c) => [c.slug, []]));
   tools.forEach((t) => byCat.get(t.category)?.push(t));
   const sortedTools = [...tools].sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));

@@ -222,6 +222,7 @@ Google 没有推送接口：在 Search Console 提交 `sitemap.xml` 即可，它
 - 自动生成 `sitemap.xml`（含 lastmod）与 `robots.txt`（URL 取 `site.domain`，当前为 `https://aitools.coderx.me`）
 - 全部链接为相对路径，可直接部署到 GitHub Pages 项目子路径或自定义域名
 - 构建时自动做全站死链检测，有死链则构建失败
+- 静态资源带内容哈希版本号（`style.css?v=<hash>`），配合服务器 7 天缓存：内容不变继续命中缓存，一改版老访客也能立刻拿到新 JS/CSS（否则会出现「新 HTML + 旧 JS」导致交互错乱）
 
 ## 工具图标
 

@@ -20,6 +20,9 @@ export function renderLayout({ site, title, description, path, depth, navKey, bo
 
   const year = new Date().getFullYear();
 
+  // 资源版本号（构建时按 CSS/JS 内容哈希生成），用于绕过 7 天的静态资源缓存
+  const ver = site.assetVer ? `?v=${esc(site.assetVer)}` : '';
+
   // 备案号：site.icp 有值才渲染（工信部要求页脚展示，同时是搜索引擎的信任信号）
   const icp = site.icp
     ? ` · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">${esc(site.icp)}</a>`
@@ -65,7 +68,7 @@ i.src=${JSON.stringify(domain + '/assets/px.gif')}+'?s='+s+'&p='+encodeURICompon
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${esc(ogImage)}">
 <link rel="icon" type="image/svg+xml" href="${prefix}assets/favicon.svg">
-<link rel="stylesheet" href="${prefix}assets/css/style.css">
+<link rel="stylesheet" href="${prefix}assets/css/style.css${ver}">
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要内容</a>
@@ -99,7 +102,7 @@ ${body}
     <p class="footer-note">工具信息经人工整理，定价与功能以各官网为准；本站与所列工具无商业关联。© ${year}${icp}</p>
   </div>
 </footer>
-<script src="${prefix}assets/js/main.js" defer></script>
+<script src="${prefix}assets/js/main.js${ver}" defer></script>
 ${beacon}</body>
 </html>`;
 }
